@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  comment: MyText
+  days_registered: 9.99
+  days_participated: 9.99
+  paid: false
+  fee: 9.99
+  user: 
+  lan: 
+
+two:
+  comment: MyText
+  days_registered: 9.99
+  days_participated: 9.99
+  paid: false
+  fee: 9.99
+  user: 
+  lan: 
