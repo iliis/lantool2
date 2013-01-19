@@ -42,3 +42,6 @@ gem 'jquery-rails'
 
 gem 'mail'
 gem 'valid_email'
+
+# needed for console
+gem 'minitest'

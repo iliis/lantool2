@@ -1,3 +1,5 @@
+*.swp
+*.lock
 *.rbc
 *.sassc
 .sass-cache
