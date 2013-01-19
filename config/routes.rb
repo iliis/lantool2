@@ -1,4 +1,19 @@
 LanTool2::Application.routes.draw do
+
+  root :to => 'users#index'
+
+  resources :users do
+    resources :attendances do
+      resources :lan
+    end
+  end
+
+  resources :lans do
+    resources :attendances do
+      resources :users
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
