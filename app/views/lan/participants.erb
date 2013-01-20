@@ -1,0 +1,21 @@
+<% content_for :site_title do %>Teilnehmer LAN, <%= @short_descr %><% end %>
+<% content_for :page_title do %>Teilnehmer<% end %>
+<% content_for :page_subtitle do %>
+<%= link_to "zurück zur Anmeldung", :action => 'register' %>
+<% end %>
+
+<table id="tbl_lan_participants">
+  <thead>
+    <tr>
+      <td>Voller Name</td>
+      <td>Nick</td>
+      <td>angemeldete Tage</td>
+      <td>Kommentar</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <%= render(:partial => "participant", :collection => @participants) || 'Es hat sich noch niemand angemeldet.' %>
+
+  </tbody>
+</table>

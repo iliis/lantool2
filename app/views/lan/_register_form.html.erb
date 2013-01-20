@@ -1,0 +1,23 @@
+<%= form_tag do %>
+  <%= label_tag(:full_name, 'Voller Name:') %> <br />
+  <%= text_field_tag(:full_name) %>
+  <hr class="field_seperator" />
+
+  <%= label_tag(:nick, 'Nick:') %> <br />
+  <%= text_field_tag(:nick) %>
+  <hr class="field_seperator" />
+
+  <%= label_tag(:email, 'EMail:') %> <br />
+  <%= email_field_tag(:email) %>
+  <hr class="field_seperator" />
+
+  <%= label_tag(:duration, 'Ich komme für:') %> <br />
+  <%= select_tag(:duration, options_for_select({'alle drei Tage' => 3, 'zwei Tage' => 2, 'einen Tag' => 1})) %> <br />
+  <hr class="field_seperator" />
+
+  <%= label_tag(:comment, 'Kommentar:') %> <br />
+  <%= text_area_tag(:comment) %>
+  <hr class="field_seperator" />
+
+  <%= submit_tag('anmelden') %>
+<% end %>
