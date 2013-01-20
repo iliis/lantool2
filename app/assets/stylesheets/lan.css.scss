@@ -49,6 +49,19 @@ body
 	margin-top: -17pt;
 }
 
+#footer
+{
+  width: 500px;
+  padding-right: 10px;
+  padding-left:  10px;
+  text-align: right;
+  color: #333;
+
+  a {
+    color: #444;
+  }
+}
+
 b
 {
 	font-weight: 700;
