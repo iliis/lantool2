@@ -42,6 +42,7 @@ gem 'jquery-rails'
 
 gem 'mail'
 gem 'valid_email'
+gem 'ledermann-rails-settings', :require => 'rails-settings'
 
 # needed for console
 gem 'minitest'

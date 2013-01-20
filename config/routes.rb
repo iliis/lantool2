@@ -2,6 +2,8 @@ LanTool2::Application.routes.draw do
 
   root :to => 'users#index'
 
+  match 'admin' => 'admin#index'
+
   resources :users do
     resources :attendances do
       resources :lan
