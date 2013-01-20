@@ -1,0 +1,29 @@
+<% content_for :site_title do %>Anmeldung: LAN, <%= @short_descr %><% end %>
+<% content_for :page_title do %>Anmeldung LAN<% end %>
+<% content_for :page_subtitle do if Lan.current %>
+<%= link_to "Teilnehmer: #{Lan.current.users.count}", :action => 'participants' %>
+<% end end %>
+
+<%= image_tag 'img.jpg', :alt => "September '12" %>
+<br /><br />
+
+<% if Lan.current %>
+  <%= Lan.current.description %>
+  
+  <hr>
+
+  <% if Lan.current.registration_open %>
+    Insert registration form here.
+  <% else %>
+    Sorry, leider kannst du dich nicht mehr anmelden. <br />
+    Du kannst dich allerdings
+    <%= link_to 'in die Mailingliste eintragen', :action => 'mailinglist' %>,
+    um eine Einladung für die nächste LAN zu bekommen.
+  <% end %>
+
+<% else %>
+  Es ist gerade keine LAN geplant.
+  Falls du informiert werden möchtest, wenn eine organisiert wird, kannst du dich
+  <%= link_to 'in die Mailingliste eintragen', :action => 'mailinglist' %>.
+<% end %>
+

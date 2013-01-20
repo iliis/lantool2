@@ -42,7 +42,12 @@ gem 'jquery-rails'
 
 gem 'mail'
 gem 'valid_email'
+
+# application wide settings (eg. current_lan)
 gem 'ledermann-rails-settings', :require => 'rails-settings'
+
+# for managing files (especially images)
+gem 'paperclip'
 
 # needed for console
 gem 'minitest'

@@ -3,6 +3,9 @@ LanTool2::Application.routes.draw do
   root :to => 'users#index'
 
   match 'admin' => 'admin#index'
+  match 'lan'   => 'lan#register'
+    
+  match ':controller/:action'
 
   resources :users do
     resources :attendances do

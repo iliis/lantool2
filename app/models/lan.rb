@@ -3,5 +3,12 @@ class Lan < ActiveRecord::Base
 
   has_many :attendances
   has_many :users, :through => :attendances
+
+  def self.current
+    # TODO: chache this. at least put it in @some_var
+    if Settings.current_lan
+      Lan.find(Settings.current_lan)
+    end
+  end
 end
 
