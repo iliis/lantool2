@@ -1,0 +1,9 @@
+<% content_for :site_title do %>LAN Mailingliste<% end %>
+<% content_for :page_title do %>Mailingliste<% end %>
+<% content_for :page_subtitle do %>
+<%= link_to "Anmeldung", :action => 'register' %>
+<% end %>
+
+<%= render 'mailinglist_insert_form' %>
+<hr>
+<%= render 'mailinglist_remove_form' %>

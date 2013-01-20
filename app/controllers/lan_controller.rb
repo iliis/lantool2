@@ -30,6 +30,7 @@ class LanController < ApplicationController
   end
 
   def mailinglist
+    @mailinglist_entry = Mailinglist.new
   end
 
   def faq
