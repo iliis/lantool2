@@ -4,9 +4,29 @@ class LanController < ApplicationController
   before_filter :set_short_descr, :only => [:register, :participants]
 
   def register
+    if request.post? and Lan.current and Lan.current.registration_open
+      user = User.new
+      user.name  = params[:full_name]
+      user.nick  = params[:nick]
+      user.email = params[:email]
+
+      att = Attendance.new
+      att.days_registered = params[:duration]
+      att.comment         = params[:comment]
+      att.user            = user
+      att.lan             = Lan.current
+
+      user.save
+      att.save
+    end
   end
 
   def participants
+    if Lan.current
+      @participants = Lan.current.attendances
+    else
+      @participants = []
+    end
   end
 
   def mailinglist

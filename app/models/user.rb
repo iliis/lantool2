@@ -10,6 +10,5 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,
                     :email => true
 
-  validates :password, :presence => true,
-                       :confirmation => true
+  validates :password, :confirmation => true #, :presence => true
 end
