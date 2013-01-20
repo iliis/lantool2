@@ -1,0 +1,13 @@
+<h3>Eintragen</h3>
+<%= form_for(@mailinglist_entry) do |f| %>
+
+  <%= f.label :name, "Name:" %>
+  <%= f.text_field :name %>
+  <hr class="field_seperator">
+
+  <%= f.label :email, "EMail:" %>
+  <%= f.email_field :email %>
+  <hr class="field_seperator">
+
+  <%= f.submit "eintragen" %>
+<% end %>

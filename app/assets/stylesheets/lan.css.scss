@@ -147,7 +147,12 @@ input[type=submit], input[id=name]
 {
 	font-family: 'Mate SC', serif;
 	font-weight: bold;
-	width: 502px;
+	color: #d40;
+    border-color: #d97;
+    background-color: #fffafa;
+	/* width: 502px; */
+    width: 251px;
+    margin-left: 251px;
 }
 
 .form_error

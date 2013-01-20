@@ -19,6 +19,10 @@ LanTool2::Application.routes.draw do
     end
   end
 
+  resources :games
+  resources :faqs
+  resources :mailinglists
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
