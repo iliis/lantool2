@@ -10,5 +10,11 @@ class Lan < ActiveRecord::Base
       Lan.find(Settings.current_lan)
     end
   end
+
+  def short_descr
+    # eg. 'Januar 2012, Winterthur'
+    # TODO: add short_location or something to Lan instead of hardcoding this here
+    self.starttime.strftime('%B %Y') + ', Winterthur'
+  end
 end
 

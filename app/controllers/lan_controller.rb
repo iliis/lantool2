@@ -24,9 +24,7 @@ private
   def set_short_descr
     l = Lan.current
     if l
-      # eg. 'Januar 2012, Winterthur'
-      # TODO: add short_location or something to Lan instead of hardcoding this here
-      @short_descr = l.starttime.strftime('%B %Y') + ', Winterthur'
+      @short_descr = l.short_descr
     else
       @short_descr = 'keine'
     end
