@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
                     :email => true
 
   validates :password, :confirmation => true #, :presence => true
+
+  def attends?(lan)
+    lan.users.exists?(self) || lan.users.where(:name => self.name).any? || lan.users.where(:email => self.email).any?
+  end
 end
