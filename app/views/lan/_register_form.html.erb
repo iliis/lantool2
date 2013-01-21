@@ -1,22 +1,30 @@
+<% if @errors %>
+  <% @errors.each_pair do |k,v| %>
+    <div class="form_error">
+      <%= k %>: <%= v.join(', ') %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= form_tag do %>
   <%= label_tag(:full_name, 'Voller Name:') %> <br />
-  <%= text_field_tag(:full_name) %>
+  <%= text_field_tag(:full_name, @full_name) %>
   <hr class="field_seperator" />
 
   <%= label_tag(:nick, 'Nick:') %> <br />
-  <%= text_field_tag(:nick) %>
+  <%= text_field_tag(:nick, @nick) %>
   <hr class="field_seperator" />
 
   <%= label_tag(:email, 'EMail:') %> <br />
-  <%= email_field_tag(:email) %>
+  <%= email_field_tag(:email, @email) %>
   <hr class="field_seperator" />
 
   <%= label_tag(:duration, 'Ich komme für:') %> <br />
-  <%= select_tag(:duration, options_for_select({'alle drei Tage' => 3, 'zwei Tage' => 2, 'einen Tag' => 1})) %> <br />
+  <%= select_tag(:duration, options_for_select({'alle drei Tage' => 3, 'zwei Tage' => 2, 'einen Tag' => 1}, @duration)) %> <br />
   <hr class="field_seperator" />
 
   <%= label_tag(:comment, 'Kommentar:') %> <br />
-  <%= text_area_tag(:comment) %>
+  <%= text_area_tag(:comment, @comment) %>
   <hr class="field_seperator" />
 
   <%= submit_tag('anmelden') %>

@@ -1,0 +1,7 @@
+<% content_for :site_title do %>Anmeldung erfolgreich: LAN, <%= @short_descr %><% end %>
+<% content_for :page_title do %>Anmeldung erfolgreich<% end %>
+<% content_for :page_subtitle do if Lan.current %>
+<%= link_to "Teilnehmer: #{Lan.current.users.count}", :action => 'participants' %>
+<% end end %>
+
+Yay, du bist angemeldet. Du kriegst gleich eine Bestätigungs-EMail.

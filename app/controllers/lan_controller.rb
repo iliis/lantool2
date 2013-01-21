@@ -16,8 +16,17 @@ class LanController < ApplicationController
       att.user            = user
       att.lan             = Lan.current
 
-      user.save
-      att.save
+      if user.save and att.save
+        render 'registration_successfull'
+      else
+        @full_name = user.name
+        @nick      = user.nick
+        @email     = user.email
+        @duration  = att.days_registered
+        @comment   = att.comment
+
+        @errors    = user.errors.messages.merge att.errors.messages
+      end
     end
   end
 

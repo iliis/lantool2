@@ -162,7 +162,7 @@ input[type=submit], input[id=name]
 
 .form_error:before
 {
-	content: url('error.png');
+	content: image-url('icons/error.png');
 	margin-right: 4pt;
 	margin-left: 5pt;
 	/*bottom: -:px;*/
