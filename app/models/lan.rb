@@ -1,5 +1,8 @@
 class Lan < ActiveRecord::Base
   attr_accessible :endtime, :place, :starttime
+  validates :starttime, :presence => true
+  validates :endtime,   :presence => true
+  validate  :start_before_end?
 
   has_many :attendances
   has_many :users, :through => :attendances
@@ -15,6 +18,16 @@ class Lan < ActiveRecord::Base
     # eg. 'Januar 2012, Winterthur'
     # TODO: add short_location or something to Lan instead of hardcoding this here
     self.starttime.strftime('%B %Y') + ', Winterthur'
+  end
+
+private
+
+  def start_before_end?
+    if starttime and endtime
+      if self.starttime >= self.endtime
+        errors.add(:starttime, "has to be before endtime")
+      end
+    end
   end
 end
 
