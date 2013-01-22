@@ -17,6 +17,7 @@ class LanController < ApplicationController
       att.lan             = Lan.current
 
       if user.save and att.save
+        LanMailer.registration_confirmation_email(att).deliver
         render 'registration_successfull'
       else
         @full_name = user.name
@@ -28,6 +29,11 @@ class LanController < ApplicationController
         @errors    = user.errors.messages.merge att.errors.messages
       end
     end
+  end
+
+  def testmail
+    LanMailer.registration_confirmation(Lan.first.attendances.first)
+    render 'registration_successfull'
   end
 
   def participants
@@ -59,6 +65,10 @@ private
     else
       @short_descr = 'keine'
     end
+  end
+
+  def send_registration_confirmation_mail(reg)
+    mail(:to => 'samuelbryner@gmx.ch', :from => 'iliis.junk@gmail.com', :subject => 'rails mail test')
   end
 
 end

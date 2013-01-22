@@ -5,6 +5,9 @@
 <% end %>
 
 <table id="tbl_lan_participants">
+  <% if @participants.empty? %>
+    Es hat sich noch niemand angemeldet.
+  <% else %>
   <thead>
     <tr>
       <td>Voller Name</td>
@@ -15,7 +18,8 @@
   </thead>
   <tbody>
     
-    <%= render(:partial => "participant", :collection => @participants) || 'Es hat sich noch niemand angemeldet.' %>
+    <%= render(:partial => "participant", :collection => @participants) %>
 
   </tbody>
+  <% end %>
 </table>
