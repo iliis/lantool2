@@ -17,7 +17,7 @@ class LanController < ApplicationController
       att.lan             = Lan.current
 
       if user.save and att.save
-        LanMailer.registration_confirmation_email(att).deliver
+        LanMailer.registration_confirmation(att).deliver
         render 'registration_successfull'
       else
         @full_name = user.name
