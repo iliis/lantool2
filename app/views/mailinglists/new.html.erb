@@ -1,9 +1,16 @@
 <% content_for :site_title do %>LAN Mailingliste<% end %>
 <% content_for :page_title do %>Mailingliste<% end %>
 <% content_for :page_subtitle do %>
-<%= link_to "Anmeldung", :action => 'register' %>
+  <%= link_to "Anmeldung", :controller => 'lan', :action => 'register' %>
 <% end %>
 
+<% if notice %>
+  <div class="notice_message"><%= notice %></div>
+  <hr>
+<% end %>
+
+<%= render 'shared/form_errors' %>
+
 <%= render 'mailinglist_insert_form' %>
-<hr>
+<hr class="double_line">
 <%= render 'mailinglist_remove_form' %>
