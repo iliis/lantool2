@@ -1,0 +1,12 @@
+<% content_for :site_title do %>LAN Mailingliste: Eintrag löschen<% end %>
+<% content_for :page_title do %>Mailingliste: Eintrag löschen<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "Mailingliste", :action => 'new' %>
+<% end %>
+<%= logger.debug @entry.inspect %>
+Soll diese EMail-Adresse wirklich aus der Liste ausgetragen werden?<br>
+<b><%= @entry.email %></b>
+
+<br><br>
+
+<%= button_to 'Ja, löschen!', @entry, :method => :delete %>

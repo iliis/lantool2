@@ -116,6 +116,12 @@ hr
 	clear: both;
 }
 
+hr.double_line
+{
+  border-top: 1px solid #bbb;
+  height: 3px;
+}
+
 textarea
 {	
 	display: inline block;
@@ -237,4 +243,36 @@ img.thumb
 	font-family: 'Mate SC', serif;
 	
 	color: #888;
+}
+
+
+.error_message, .warning_message, .notice_message
+{
+  font-size: 14pt;
+
+  background-color: #eee;
+  border: 1px solid #FFF;
+  padding: 15pt;
+  margin: 15pt;
+  
+  border-radius: 4px;
+  box-shadow: 4px 4px 10px rgba(18,18,18,0.5);
+  
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd));
+  background: -moz-linear-gradient(top, #eee, #ddd);
+}
+
+.error_message
+{
+  background: -moz-linear-gradient(top, #eaa, #ddd);
+}
+
+.warning_message
+{
+  background: -moz-linear-gradient(top, #eca, #ddd);
+}
+
+.notice_message
+{
+  background: -moz-linear-gradient(top, #eea, #ddd);
 }

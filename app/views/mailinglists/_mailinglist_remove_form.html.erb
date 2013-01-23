@@ -1,0 +1,9 @@
+<h3>Austragen</h3>
+<%= form_tag(url_for(:controller => 'mailinglists', :action => 'confirm_delete'), :method => 'get') do %>
+
+  <%= label_tag :email, "EMail:", @email %>
+  <%= email_field_tag :email %>
+  <hr class="field_seperator">
+
+  <%= submit_tag "entfernen" %>
+<% end %>

@@ -26,7 +26,7 @@ class LanController < ApplicationController
         @duration  = att.days_registered
         @comment   = att.comment
 
-        @errors    = user.errors.messages.merge att.errors.messages
+        @errors    = user.errors.full_messages + att.errors.full_messages
       end
     end
   end

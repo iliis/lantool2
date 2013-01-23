@@ -1,0 +1,7 @@
+<% if @errors %>
+  <% @errors.each do |msg| %>
+    <div class="form_error">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
