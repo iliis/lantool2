@@ -3,9 +3,9 @@
 <% content_for :page_subtitle do %>
   <%= link_to "Mailingliste", :action => 'new' %>
 <% end %>
-<%= logger.debug @entry.inspect %>
-Soll diese EMail-Adresse wirklich aus der Liste ausgetragen werden?<br>
-<b><%= @entry.email %></b>
+
+<b><%= @entry.email %></b><br>
+Soll diese EMail-Adresse wirklich aus der Liste ausgetragen werden?
 
 <br><br>
 
