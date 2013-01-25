@@ -1,0 +1,9 @@
+Hallo <%= @user.name %><br><br>
+
+<%= @message %>
+
+<br>
+<hr>
+Falls du in Zukunft keine EMails für LANs kriegen willst, kannst du dich
+<%= link_to 'aus der Mailingliste austragen',
+  mailinglist_remove_url(:email => @user.email) %>

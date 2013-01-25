@@ -50,6 +50,19 @@ LanTool2::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => 'mail.gmx.net',
+    :port    => 587,
+    :authentication => :login,
+    :enable_starttls_auto => true,
+    :user_name => 'USERNAME@gmx.ch',
+    :password => 'PASSWORD',
+    :openssl_verify_mode => 'none'
+  }
+  config.action_mailer.default_url_options = { :host => 'SERVER' }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable threaded mode
   # config.threadsafe!

@@ -17,7 +17,7 @@ class LanController < ApplicationController
       att.lan             = Lan.current
 
       if user.save and att.save
-        LanMailer.registration_confirmation(att).deliver
+        LanMailer.registration_confirmation(att)
         render 'registration_successfull'
       else
         @full_name = user.name
@@ -29,11 +29,6 @@ class LanController < ApplicationController
         @errors    = user.errors.full_messages + att.errors.full_messages
       end
     end
-  end
-
-  def testmail
-    LanMailer.registration_confirmation(Lan.first.attendances.first)
-    render 'registration_successfull'
   end
 
   def participants

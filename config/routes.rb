@@ -5,6 +5,7 @@ LanTool2::Application.routes.draw do
   match 'admin' => 'admin#index'
   match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
+  match 'lan/testmail'     => 'lan#testmail'
   match 'register' => 'lan#register'
   match 'faq'   => 'lan#faq'
   match 'games' => 'lan#games'
@@ -24,7 +25,7 @@ LanTool2::Application.routes.draw do
   resources :games, :faqs
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'
-  match 'mailinglist(s)/confirm_delete(/:email)' => 'mailinglists#confirm_delete'
+  match 'mailinglist(s)/confirm_delete' => 'mailinglists#confirm_delete', :as => :mailinglist_remove
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
