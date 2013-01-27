@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120232308) do
+ActiveRecord::Schema.define(:version => 20130127182314) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20130120232308) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.boolean  "registration_open"
-    t.string   "description"
+    t.text     "description"
   end
 
   create_table "mailinglists", :force => true do |t|

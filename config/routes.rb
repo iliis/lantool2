@@ -1,6 +1,6 @@
 LanTool2::Application.routes.draw do
 
-  root :to => 'users#index'
+  root :to => 'lan#register'
 
   match 'admin' => 'admin#index'
   match 'lan'   => 'lan#register'
