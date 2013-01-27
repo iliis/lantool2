@@ -1,0 +1,12 @@
+<% content_for :site_title do %>LAN Mailingliste: send mail<% end %>
+<% content_for :page_title do %>Mailingliste: send mail<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "manage", :controller => 'mailinglist', :action => 'manage' %>
+<% end %>
+
+Hallo $name<br>
+
+<%= form_tag do %>
+	<%= text_area_tag(:message, @message) %><br>
+	<%= submit_tag("an #{@recipient_count} Leute senden") %>
+<% end %>

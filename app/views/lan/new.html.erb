@@ -1,0 +1,31 @@
+<% content_for :site_title do %>Erstelle LAN<% end %>
+<% content_for :page_title do %>LAN erstellen<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "zurück zur Anmeldung", :action => 'register' %>
+<% end %>
+
+<%= render 'shared/form_errors' %>
+
+<%= form_for(@lan) do |f| %>
+	<%= f.label :place, "Ort: %> <br>
+	<%= f.text_field :place %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :starttime, "Start (format?):" %> <br>
+	<%= f.date_field :starttime %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :endtime, "Ende:" %> <br>
+	<%= f.date_field :endtime %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :description, "Beschreibung:" %> <br>
+	<%= f.text_area :description %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.submit "speichern" %>
+<% end %>

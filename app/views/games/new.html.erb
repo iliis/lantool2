@@ -1,0 +1,22 @@
+<% content_for :site_title do %>LAN Games: new Entr<% end %>
+<% content_for :page_title do %>Games: new Entry<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "Übersicht", :action => 'index' %>
+<% end %>
+
+<%= render 'shared/form_errors' %>
+
+<%= form_for(@game) do |f| %>
+	
+	<%= f.label :title, "Titel:" %><br>
+	<%= f.text_field :title %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :description, "Description:" %><br>
+	<%= f.text_area :description %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.submit "speichern" %>
+<% end %>

@@ -4,11 +4,6 @@
   <%= link_to "Anmeldung", :controller => 'lan', :action => 'register' %>
 <% end %>
 
-<% if notice %>
-  <div class="notice_message"><%= notice %></div>
-  <hr>
-<% end %>
-
 <%= render 'shared/form_errors' %>
 
 <%= render 'mailinglist_insert_form' %>

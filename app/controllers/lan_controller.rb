@@ -50,6 +50,15 @@ class LanController < ApplicationController
   def games
     @games = Game.all
   end
+  
+  def new
+	@lan = Lan.new
+  end
+  
+  def create
+    @lan = Lan.new(params[:lan])
+    # todo: save
+  end
 
 private
   

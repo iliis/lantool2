@@ -1,0 +1,22 @@
+<% content_for :site_title do %>LAN FAQ: new Entry<% end %>
+<% content_for :page_title do %>FAQ: new Entry<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "Übersicht", :action => 'index' %>
+<% end %>
+
+<%= render 'shared/form_errors' %>
+
+<%= form_for(@faq) do |f| %>
+	
+	<%= f.label :question, "Frage:" %><br>
+	<%= f.text_field :question %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :answer, "Antwort:" %><br>
+	<%= f.text_area :answer %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.submit "speichern" %>
+<% end %>

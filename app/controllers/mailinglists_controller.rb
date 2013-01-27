@@ -21,6 +21,25 @@ class MailinglistsController < ApplicationController
     end
   end
 
+  def manage
+    @entries = Mailinglist.all
+  end
+
+  def import
+    @separator = params[:separator]
+    @data      = params[:data]
+    @values    = @data.split('\n').split(@seperator)
+    
+    
+    @separator = ','
+  end
+
+  def send_message
+	  @recipient_count = Mailinglists.count
+	  @message = 'default message template' # use a partial view or something here
+  end
+
+
   def confirm_delete
     @entry = Mailinglist.find_by_email(params[:email])
 
