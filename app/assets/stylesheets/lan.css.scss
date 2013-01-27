@@ -132,8 +132,6 @@ input:focus, textarea:focus
 {
 	border: 1px solid #333;
 	box-shadow: 0 0 8px rgba(0,0,0,0.4);
-	
-	
 }
 
 input, textarea
@@ -159,6 +157,12 @@ input[type=submit], input[id=name]
 	/* width: 502px; */
     width: 251px;
     margin-left: 251px;
+}
+
+.field_with_errors input
+{
+  border-color: #B00;
+  box-shadow: 0 0 5px rgba(200,0,0,0.4);
 }
 
 .form_error

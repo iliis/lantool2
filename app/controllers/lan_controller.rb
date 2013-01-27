@@ -4,6 +4,8 @@ class LanController < ApplicationController
   before_filter :set_short_descr, :only => [:register, :participants]
 
   def register
+    @lan = Lan.current
+
     if request.post? and Lan.current and Lan.current.registration_open
       user = User.new
       user.name  = params[:full_name]
@@ -53,11 +55,19 @@ class LanController < ApplicationController
   
   def new
 	@lan = Lan.new
+    @lan.description = render_to_string :partial => 'new_template'
   end
   
   def create
     @lan = Lan.new(params[:lan])
-    # todo: save
+
+    if @lan.save
+      flash[:notice] = 'gespeichert'
+    else
+      @errors = @lan.errors.full_messages
+    end
+
+    render :action => 'new'
   end
 
 private
