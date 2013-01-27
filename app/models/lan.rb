@@ -1,5 +1,5 @@
 class Lan < ActiveRecord::Base
-  attr_accessible :endtime, :place, :starttime
+  attr_accessible :endtime, :place, :starttime, :description, :registration_open
   validates :starttime, :presence => true
   validates :endtime,   :presence => true
   validate  :start_before_end?
@@ -14,10 +14,18 @@ class Lan < ActiveRecord::Base
     end
   end
 
+  def current!
+    Settings.current_lan = self.id
+  end
+
+  def time
+    I18n.localize(self.starttime, :format => '%A, %d.')+' bis '+I18n.localize(self.endtime, :format => '%A, %d. %B %Y')
+  end
+
   def short_descr
     # eg. 'Januar 2012, Winterthur'
     # TODO: add short_location or something to Lan instead of hardcoding this here
-    self.starttime.strftime('%B %Y') + ', Winterthur'
+    I18n.localize(self.starttime, :format => '%B %Y') + ', ' + self.place
   end
 
 private
