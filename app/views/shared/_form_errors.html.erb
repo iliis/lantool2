@@ -1,3 +1,8 @@
+<% if notice %>
+  <div class="notice_message"><%= notice %></div>
+  <hr>
+<% end %>
+
 <% if @errors %>
   <% @errors.each do |msg| %>
     <div class="form_error">

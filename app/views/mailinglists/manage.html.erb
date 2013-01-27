@@ -1,0 +1,30 @@
+<% content_for :site_title do %>LAN Mailingliste: manage<% end %>
+<% content_for :page_title do %>Mailingliste verwalten<% end %>
+
+<%= link_to "Neuer Eintrag / Eintrag löschen", :action => 'new' %>
+<%= link_to "Import", :action => 'import' %>
+<%= link_to "Nachricht versenden", :action => 'send_message' %>
+
+<hr>
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>EMail</td>
+			<td></td>
+		</tr>
+	</thead>
+	
+	<tbody>
+
+		<% @entries.each do |e| %>
+			<tr>
+				<td><%= e.name %></td>
+				<td><%= e.email %></td>
+				<td><%= link_to "löschen", mailinglist_remove_path(:email => e.email) %>
+			</tr>
+		<% end %>
+
+	</tbody>
+</table>
