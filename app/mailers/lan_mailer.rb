@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: UTF-8
+
 class LanMailer < ActionMailer::Base
   # ActionMailer doesn't seem to have before_filters...
   # before_filter :set_settings_from_db
