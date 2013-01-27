@@ -7,12 +7,12 @@
 <%= image_tag 'img.jpg', :alt => "September '12" %>
 <br /><br />
 
-<% if Lan.current %>
-  <%= Lan.current.description %>
+<% if @lan %>
+  <%= @lan.description.html_safe %>
   
   <hr>
 
-  <% if Lan.current.registration_open %>
+  <% if @lan.registration_open %>
     <%= render 'register_form' %>
   <% else %>
     Sorry, leider kannst du dich nicht mehr anmelden. <br />

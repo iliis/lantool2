@@ -1,12 +1,23 @@
 <% content_for :site_title do %>LAN Mailingliste: send mail<% end %>
 <% content_for :page_title do %>Mailingliste: send mail<% end %>
 <% content_for :page_subtitle do %>
-  <%= link_to "manage", :controller => 'mailinglist', :action => 'manage' %>
+  <%= link_to "manage", :action => 'manage' %>
 <% end %>
 
-Hallo $name<br>
+<%= render 'shared/form_errors' %>
+
+Newlines werden durch durch &lt;br&gt; ersetzt!<br><br>
 
 <%= form_tag do %>
-	<%= text_area_tag(:message, @message) %><br>
-	<%= submit_tag("an #{@recipient_count} Leute senden") %>
+  <%= label_tag :subject, "Subject:" %>
+  <%= text_field_tag(:subject, @subject) %>
+
+  <hr class="field_seperator">
+
+  Hallo $name<br>
+  <%= text_area_tag(:message, @message) %>
+
+  <hr class="field_seperator">
+
+  <%= submit_tag("an #{@recipient_count} Leute senden") %>
 <% end %>

@@ -7,22 +7,22 @@
 <%= render 'shared/form_errors' %>
 
 <%= form_for(@lan) do |f| %>
-	<%= f.label :place, "Ort: %> <br>
+  <%= f.label :place, "Ort:" %>
 	<%= f.text_field :place %>
 	
 	<hr class="field_seperator" />
 	
-	<%= f.label :starttime, "Start (format?):" %> <br>
-	<%= f.date_field :starttime %>
+	<%= f.label :starttime, "Start (format?):" %>
+	<%= f.text_field :starttime %>
 	
 	<hr class="field_seperator" />
 	
-	<%= f.label :endtime, "Ende:" %> <br>
-	<%= f.date_field :endtime %>
+	<%= f.label :endtime, "Ende:" %>
+	<%= f.text_field :endtime %>
 	
 	<hr class="field_seperator" />
 	
-	<%= f.label :description, "Beschreibung:" %> <br>
+	<%= f.label :description, "Beschreibung:" %>
 	<%= f.text_area :description %>
 	
 	<hr class="field_seperator" />
