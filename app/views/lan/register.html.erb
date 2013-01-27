@@ -17,13 +17,13 @@
   <% else %>
     Sorry, leider kannst du dich nicht mehr anmelden. <br />
     Du kannst dich allerdings
-    <%= link_to 'in die Mailingliste eintragen', :action => 'mailinglist' %>,
+    <%= link_to 'in die Mailingliste eintragen', :controller => 'mailinglists', :action => 'new' %>,
     um eine Einladung für die nächste LAN zu bekommen.
   <% end %>
 
 <% else %>
   Es ist gerade keine LAN geplant.
   Falls du informiert werden möchtest, wenn eine organisiert wird, kannst du dich
-  <%= link_to 'in die Mailingliste eintragen', :action => 'mailinglist' %>.
+  <%= link_to 'in die Mailingliste eintragen', :controller => 'mailinglists', :action => 'new' %>.
 <% end %>
 
