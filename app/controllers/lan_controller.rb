@@ -17,11 +17,18 @@ class LanController < ApplicationController
       att.comment         = params[:comment]
       att.user            = user
       att.lan             = Lan.current
+      
+      user_ok = user.save
+      att_ok  = att.save
 
-      if user.save and att.save
+      if user_ok and att_ok
         LanMailer.registration_confirmation(att)
         render 'registration_successfull'
       else
+        #undo inserts
+        user.delete   if user_ok
+        att_ok.delete if att_ok
+
         @full_name = user.name
         @nick      = user.nick
         @email     = user.email
