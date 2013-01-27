@@ -8,12 +8,22 @@
 
 <%= form_for(@game) do |f| %>
 	
-	<%= f.label :title, "Titel:" %><br>
-	<%= f.text_field :title %>
+	<%= f.label :name, "Name:" %>
+	<%= f.text_field :name %>
 	
 	<hr class="field_seperator" />
 	
-	<%= f.label :description, "Description:" %><br>
+	<%= f.label :link, "Link:" %>
+	<%= f.text_field :link %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :screenshot, "Screenshot:" %>
+	<%= f.file_field :screenshot %>
+	
+	<hr class="field_seperator" />
+	
+	<%= f.label :description, "Beschreibung:" %>
 	<%= f.text_area :description %>
 	
 	<hr class="field_seperator" />

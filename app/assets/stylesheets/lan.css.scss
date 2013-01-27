@@ -159,7 +159,7 @@ input[type=submit], input[id=name]
     margin-left: 251px;
 }
 
-.field_with_errors input
+.field_with_errors input, .field_with_errors textarea
 {
   border-color: #B00;
   box-shadow: 0 0 5px rgba(200,0,0,0.4);

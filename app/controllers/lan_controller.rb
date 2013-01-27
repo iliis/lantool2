@@ -45,14 +45,6 @@ class LanController < ApplicationController
     @mailinglist_entry = Mailinglist.new
   end
 
-  def faq
-    @faqs = FAQ.all
-  end
-
-  def games
-    @games = Game.all
-  end
-  
   def new
 	@lan = Lan.new
     @lan.description = render_to_string :partial => 'new_template'

@@ -7,9 +7,7 @@ LanTool2::Application.routes.draw do
   match 'lan/participants' => 'lan#participants'
   match 'lan/mailinglist'  => 'lan#mailinglist'
   match 'register' => 'lan#register'
-  match 'faq'   => 'lan#faq'
-  match 'games' => 'lan#games'
-    
+  
   resources :users do
     resources :attendances do
       resources :lan
@@ -22,7 +20,8 @@ LanTool2::Application.routes.draw do
     end
   end
 
-  resources :games, :faqs
+  resources :games
+  resources :faqs, :path => 'faq' 
 
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'

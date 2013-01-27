@@ -1,9 +1,12 @@
 <% content_for :site_title do %>LAN: List of Games<% end %>
 <% content_for :page_title do %>Games<% end %>
 <% content_for :page_subtitle do %>
-<%= link_to "zurück zur Anmeldung", :action => 'register' %>
+  <%= link_to "zurück zur Anmeldung", :controller => 'lan', :action => 'register' %>
 <% end %>
 
 Die Spiele stellen wir bereit, ihr müsst also nix von alldem schon vorher installieren. Wir haben einen Server von dem alles direkt herübergezogen werden kann.
 
 <%= render(@games) || '<hr><b>Keine Spiele in der Datenbank<b>'.html_safe %>
+
+
+<br style="clear: both">
