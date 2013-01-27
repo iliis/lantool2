@@ -9,7 +9,7 @@ class LanMailer < ActionMailer::Base
     @user       = attendance.user
     mail(:to => "#{@user.name} <#{@user.email}>",
          :from => Settings.mailinglist_sender_email,
-         :subject => "TEST").deliver
+         :subject => "[LAN] Anmeldebestätigung").deliver
   end
 
   def general_mail(mailinglist_user, subject, message)
