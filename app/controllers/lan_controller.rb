@@ -26,8 +26,8 @@ class LanController < ApplicationController
         render 'registration_successfull'
       else
         #undo inserts
-        user.delete   if user_ok
-        att_ok.delete if att_ok
+        user.delete if user_ok
+        att.delete  if att_ok
 
         @full_name = user.name
         @nick      = user.nick
