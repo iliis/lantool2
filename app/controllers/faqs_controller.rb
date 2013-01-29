@@ -16,7 +16,7 @@ class FaqsController < ApplicationController
 
     if @faq.save
       flash[:notice] = 'gespeichert'
-      @faq = nil
+      @faq = Faq.new
     else
       @errors = @faq.errors.full_messages
     end
