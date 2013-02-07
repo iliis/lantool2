@@ -3,6 +3,8 @@ class GamesController < ApplicationController
 
   layout 'lan'
 
+  before_filter :authenticate_admin, :except => [:index]
+
   def index
     @games = Game.all
   end

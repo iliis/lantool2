@@ -51,3 +51,6 @@ gem 'paperclip'
 
 # needed for console
 gem 'minitest'
+
+# user authentication
+gem 'bcrypt-ruby', :require => 'bcrypt'

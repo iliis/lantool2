@@ -1,6 +1,7 @@
 LanTool2::Application.routes.draw do
 
-  root :to => 'lan#register'
+  #root :to => 'lan#register'
+  root :to => 'users#index'
 
   match 'admin' => 'admin#index'
   match 'lan'   => 'lan#register'
@@ -20,6 +21,11 @@ LanTool2::Application.routes.draw do
     end
   end
 
+  get 'login'  => 'sessions#new',     :as => 'login'
+  get 'logout' => 'sessions#destroy', :as => 'logout'
+  get 'signup' => 'users#new',        :as => 'signup'
+
+  resources :sessions
   resources :games
   resources :faqs, :path => 'faq' 
 

@@ -131,6 +131,10 @@ de:
   helpers:
     select:
       prompt: Bitte wählen
+    label:
+      user:
+        password: 'Passwort'
+        password_confirmation: 'Passwort bestätigen'
     submit:
       create: ! '%{model} erstellen'
       submit: ! '%{model} speichern'

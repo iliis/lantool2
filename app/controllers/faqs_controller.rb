@@ -3,6 +3,8 @@ class FaqsController < ApplicationController
 
   layout 'lan'
 
+  before_filter :authenticate_admin, :except => [:index]
+
   def index
     @faqs = Faq.all
   end

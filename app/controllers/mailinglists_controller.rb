@@ -6,6 +6,8 @@ class MailinglistsController < ApplicationController
 
   layout 'lan'
 
+  before_filter :authenticate_admin, :except => [:new, :create, :destroy, :confirm_delete]
+
   def new
     @mailinglist_entry = Mailinglist.new
   end
@@ -63,6 +65,7 @@ class MailinglistsController < ApplicationController
       @subject = params[:subject]
 
       if !@message.blank? and !@subject.blank?
+        # TODO: implement this in seperate thread and provide some sort of live-updates
         Mailinglist.send_to_all(@subject, @message.gsub(/\r?\n/,'<br>').html_safe)
         flash[:notice] = "gesendet"
       else

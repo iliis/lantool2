@@ -1,0 +1,22 @@
+<h1>neuer Benutzeraccount anlegen</h1>
+<%= render 'shared/form_errors', :errors => @user.errors.full_messages %>
+
+<%= form_for @user do |f| %>
+
+  <%= f.label :email, 'Registrierungs-Email' %> <br />
+  <%= f.text_field :email %>
+
+  <hr class="field_seperator">
+
+  <%= f.label :password %> <br />
+  <%= f.password_field :password %>
+
+  <hr class="field_seperator">
+
+  <%= f.label :password_confirmation %> <br />
+  <%= f.password_field :password_confirmation %>
+
+  <hr class="field_seperator">
+
+  <%= f.submit %>
+<% end %>

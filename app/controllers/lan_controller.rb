@@ -2,6 +2,7 @@ class LanController < ApplicationController
   protect_from_forgery
 
   before_filter :set_short_descr, :only => [:register, :participants]
+  before_filter :authenticate_admin, :only => [:new, :create]
 
   def register
     @lan = Lan.current
