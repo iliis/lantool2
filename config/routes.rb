@@ -4,6 +4,7 @@ LanTool2::Application.routes.draw do
   root :to => 'users#index'
 
   match 'admin' => 'admin#index'
+  match 'admin/canvastest' => 'admin#canvastest'
   match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
   match 'lan/mailinglist'  => 'lan#mailinglist'
