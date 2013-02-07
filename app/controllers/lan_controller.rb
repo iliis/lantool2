@@ -2,8 +2,11 @@ class LanController < ApplicationController
   protect_from_forgery
 
   before_filter :set_short_descr, :only => [:register, :participants]
+  before_filter :authenticate_admin, :only => [:new, :create]
 
   def register
+    @lan = Lan.current
+
     if request.post? and Lan.current and Lan.current.registration_open
       user = User.new
       user.name  = params[:full_name]
@@ -15,11 +18,18 @@ class LanController < ApplicationController
       att.comment         = params[:comment]
       att.user            = user
       att.lan             = Lan.current
+      
+	  user_ok = user.save
+      att_ok  = att.save
 
-      if user.save and att.save
+      if user_ok and att_ok
         LanMailer.registration_confirmation(att)
         render 'registration_successfull'
       else
+        #undo inserts
+        user.delete if user_ok
+        att.delete  if att_ok
+
         @full_name = user.name
         @nick      = user.nick
         @email     = user.email
@@ -57,7 +67,14 @@ class LanController < ApplicationController
   
   def create
     @lan = Lan.new(params[:lan])
-    # todo: save
+
+    if @lan.save
+      flash[:notice] = 'gespeichert'
+    else
+      @errors = @lan.errors.full_messages
+    end
+
+    render :action => 'new'
   end
 
 private

@@ -9,6 +9,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if notice %>
+    <div class="notice_message"><%= notice %></div>
+  <% end %>
 
   <div id="menu">
     <%= render 'shared/menu' %>

@@ -1,0 +1,7 @@
+<% content_for :site_title do %>LAN: FAQ<% end %>
+<% content_for :page_title do %>FAQ<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "zurück zur Anmeldung", :controller => 'lan', :action => 'register' %>
+<% end %>
+
+<%= render(@faqs) || 'FAQ Datenbank ist leer' %>

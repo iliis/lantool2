@@ -25,5 +25,8 @@ Installation
 ============
 
 Clone into new directory.
+Run bundle install
+Run rake db:migrate to create the appropriate databases
 Configure databases in config/database.yml 
+Configure stuff in config/environments/development.erb / production.erb
 Configure stuff in config/initializers/settings.rb (alternatively, you can also set these things in the database. Use 'rails console' and 'Settings.foo = "bar"'.)

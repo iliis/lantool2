@@ -6,6 +6,7 @@ class Attendance < ActiveRecord::Base
 
   validates :days_registered, :numericality => { :only_integer => true, :greater_than => 0, :smaller_than => 4 }
   validate  :user_not_already_registered
+  validates :comment, :length => {:maximum => 300 }
 
 private
   def user_not_already_registered

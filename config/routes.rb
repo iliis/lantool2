@@ -1,35 +1,43 @@
 LanTool2::Application.routes.draw do
-
+  #root :to => 'lan#register'
   root :to => 'users#index'
 
   match 'admin' => 'admin#index'
+  match 'admin/canvastest' => 'admin#canvastest'
   match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
-  match 'lan/testmail'     => 'lan#testmail'
+  match 'lan/mailinglist'  => 'lan#mailinglist'
   match 'register' => 'lan#register'
   match 'faq'   => 'lan#faq'
   match 'games' => 'lan#games'
-    
+  
   resources :users do
     resources :attendances do
       resources :lan
     end
   end
 
-  resources :lans do
+  resources :lans, :controller => 'lan' do
     resources :attendances do
       resources :users
     end
   end
 
-  resources :games, :faqs
+  get 'login'  => 'sessions#new',     :as => 'login'
+  get 'logout' => 'sessions#destroy', :as => 'logout'
+  get 'signup' => 'users#new',        :as => 'signup'
+
+  resources :sessions
+  resources :games
+  resources :faqs, :path => 'faq' 
 
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'
   match 'mailinglist(s)/confirm_delete' => 'mailinglists#confirm_delete', :as => :mailinglist_remove
-  match 'mailinglist/manage' => 'mailinglist#manage'
-  match 'mailinglist/import' => 'mailinglist#import'
-  match 'mailinglist/send_message' => 'mailinglist#send_message'
+  match 'mailinglist/manage' => 'mailinglists#manage'
+  match 'mailinglist/import' => 'mailinglists#import'
+  match 'mailinglist/receive_import' => 'mailinglists#receive_import'
+  match 'mailinglist/send_message' => 'mailinglists#send_message'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

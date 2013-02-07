@@ -8,8 +8,8 @@
 <% end %>
 </h2>
 
-<%= image_tag(game.screenshot.url, {:class => "thumb"}) if game.screenshot.nil? %>
+<%= image_tag(game.screenshot.url, {:class => "thumb"}) if game.screenshot.present? %>
 
 <br />
 
-<%= game.description %>
+<%= game.description.html_safe %>

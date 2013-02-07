@@ -1,2 +1,10 @@
-<h1>User <%= @user.name %></h1>
-Details about this user here...
+<h1><%= @user.name %></h1>
+
+<% if @user = current_user %>
+	<%= link_to 'meinen Account bearbeiten', edit_user_path(@user) %><br /><br />
+<% end %>
+
+Nick: <b><%= @user.nick %></b><br /></br />
+
+[sitzplatz]
+[nachricht schicken]

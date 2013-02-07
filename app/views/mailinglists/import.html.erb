@@ -1,16 +1,18 @@
 <% content_for :site_title do %>LAN Mailingliste: import data<% end %>
 <% content_for :page_title do %>Mailingliste: Import<% end %>
 <% content_for :page_subtitle do %>
-  <%= link_to "manage", :controller => 'mailinglist', :action => 'manage' %>
+  <%= link_to "manage", :action => 'manage' %>
 <% end %>
 
-<%= form_tag do %>
-	<%= label_tag(:divider, "Separator:") %>
-	<%= text_field_tag(:divider, @separator) %>
+<%= render 'shared/form_errors' %>
+
+<%= form_tag('receive_import') do %>
+	<%= label_tag(:separator, "Separator:") %>
+	<%= text_field_tag(:separator, @separator) %>
 	
 	<hr class="field_seperator" />
 	
-	<%= label_tag(:data, "Data (one entry per line):<br>Name, EMail') %>
+    <%= label_tag(:data, "Data (one entry per line):<br><i>Name, EMail</i>".html_safe) %>
 	<%= text_area_tag(:data, @data) %>
 	
 	<hr class="field_seperator" />

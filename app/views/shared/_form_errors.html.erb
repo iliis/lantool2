@@ -1,10 +1,9 @@
-<% if notice %>
-  <div class="notice_message"><%= notice %></div>
-  <hr>
+<% if !defined? errors %>
+  <% errors = @errors %>
 <% end %>
 
-<% if @errors %>
-  <% @errors.each do |msg| %>
+<% if errors %>
+  <% errors.each do |msg| %>
     <div class="form_error">
       <%= msg %>
     </div>

@@ -1,3 +1,5 @@
+# use this as your config file -> make a copy and rename it to 'production.rb'
+
 LanTool2::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

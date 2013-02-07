@@ -1,4 +1,25 @@
 /* global definitions for the lantool running during an actual event (eg. mostly polls) */
+@mixin vert_gradient($topcol, $bottomcol) {
+  background: -webkit-gradient(linear, left top, left bottom, from($topcol), to($bottomcol)); /* Saf4+, Chrome */
+  background: -webkit-linear-gradient(top, $topcol, $bottomcol); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(top, $topcol, $bottomcol); /* FF3.6+ */
+  background:     -ms-linear-gradient(top, $topcol, $bottomcol); /* IE10 */
+  background:      -o-linear-gradient(top, $topcol, $bottomcol); /* Opera 11.10+ */
+  background:         linear-gradient(top, $topcol, $bottomcol); /* W3C */
+}
+
+@mixin vert_gradient_with_image($image, $options, $topcol, $bottomcol) {
+  // http://stackoverflow.com/a/2547064/211520
+  background: image-url($image) $options; /* fallback */
+  background: image-url($image) $options, -webkit-gradient(linear, left top, left bottom, from($topcol), to($bottomcol)); /* Saf4+, Chrome */
+  background: image-url($image) $options, -webkit-linear-gradient(top, $topcol, $bottomcol); /* Chrome 10+, Saf5.1+ */
+  background: image-url($image) $options,    -moz-linear-gradient(top, $topcol, $bottomcol); /* FF3.6+ */
+  background: image-url($image) $options,     -ms-linear-gradient(top, $topcol, $bottomcol); /* IE10 */
+  background: image-url($image) $options,      -o-linear-gradient(top, $topcol, $bottomcol); /* Opera 11.10+ */
+  background: image-url($image) $options,         linear-gradient(top, $topcol, $bottomcol); /* W3C */
+}
+
+
 html
 {
 	background-color: #222;
@@ -81,8 +102,7 @@ a h1, a h2
 	border-radius: 4px;
 	box-shadow: 10px 10px 10px #111;
 	
-	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd));
-	background: -moz-linear-gradient(top,  #eee,  #ddd);
+    @include vert_gradient(#eee, #ddd);
 }
 
 #account
@@ -156,10 +176,43 @@ hr.light
 	vertical-align: middle;
 }
 
+label
+{
+  line-height: 1.5;
+}
+
+input, textarea
+{
+  margin: 4px;
+  border: 1px solid #888;
+  border-radius: 2.5px;
+  padding: 3px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.15);
+  @include vert_gradient(#eee, #fff);
+}
+
+input[type="submit"]
+{
+  @include vert_gradient(#fff, #ddd);
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 textarea
 {
 	width: 100%;
 	height: 200pt;
+}
+
+input:focus, textarea:focus
+{
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  // I wish this could be written somewhat conciser with SASS
+  border-top:    1px solid #666;
+  border-left:   1px solid #666;
+  border-bottom: 1px solid #aaa;
+  border-right:  1px solid #aaa;
 }
 
 .yes_button, .no_button
@@ -185,5 +238,69 @@ textarea
 	background-color: #8DDB5E;
 }
 
+div.field_with_errors
+{
+  display: inline;
+}
 
+.field_with_errors input, .field_with_errors textarea
+{
+  border-color: #B00;
+  box-shadow: 0 0 5px rgba(200,0,0,0.4);
+}
 
+.form_error
+{
+	color: #B00;
+    padding-bottom: 5px;
+}
+
+.form_error:before
+{
+	content: image-url('icons/error.png');
+	margin-right: 4pt;
+	margin-left: 5pt;
+	bottom: -3px;
+	position: relative;
+}
+
+.field_seperator
+{
+	height: 4pt;
+	margin: 0;
+	visibility: hidden;
+}
+
+.error_message, .warning_message, .notice_message
+{
+  font-size: 14pt;
+
+  background-color: #eee;
+  border: 1px solid #FFF;
+  padding: 15pt;
+  margin: 20pt;
+  margin-bottom: 0;
+  
+  border-radius: 4px;
+  box-shadow: 4px 4px 10px rgba(18,18,18,0.5);
+  
+  @include vert_gradient(#eee, #ddd);
+}
+
+.error_message
+{
+  @include vert_gradient_with_image('icons/exclamation.png', no-repeat 20px center, #eaa, #ddd);
+  padding-left: 50px;
+}
+
+.warning_message
+{
+  @include vert_gradient_with_image('icons/error.png', no-repeat 20px center, #eca, #ddd);
+  padding-left: 50px;
+}
+
+.notice_message
+{
+  @include vert_gradient_with_image('icons/information.png', no-repeat 20px center, #eea, #ddd);
+  padding-left: 50px;
+}

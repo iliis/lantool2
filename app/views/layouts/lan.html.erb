@@ -18,6 +18,12 @@
     <span id="count"><%= yield :page_subtitle %></span>
 
     <div id="box">
+      
+      <% if notice %>
+        <div class="notice_message"><%= notice %></div>
+        <hr>
+      <% end %>
+
       <%= yield %>
     </div>
     <div id="footer">powered by <a href="https://github.com/iliis/lantool2">lantool2</a></div>

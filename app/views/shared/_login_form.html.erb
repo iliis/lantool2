@@ -1,0 +1,17 @@
+<%= render 'shared/form_errors' %>
+
+<%= form_tag sessions_path do %>
+  <%= label_tag :name, "Name / EMail / Nick" %> <br />
+  <%= text_field_tag :name, @name %>
+  
+  <hr class="field_seperator" />
+
+  <%= label_tag :password %> <br />
+  <%= password_field_tag :password %>
+  
+  <hr class="field_seperator" />
+
+  <%= link_to "registrieren", signup_path %>
+  <%= submit_tag "login", :style=>"float: right" %>
+  <br clear="both">
+<% end %>
