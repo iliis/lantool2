@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207104038) do
+ActiveRecord::Schema.define(:version => 20130208160518) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -68,6 +68,18 @@ ActiveRecord::Schema.define(:version => 20130207104038) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.integer  "owner_id"
+    t.integer  "lan_id"
+    t.string   "type"
+    t.datetime "expiration_date"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "polls", ["owner_id"], :name => "index_polls_on_owner_id"
 
   create_table "settings", :force => true do |t|
     t.string   "var",                       :null => false

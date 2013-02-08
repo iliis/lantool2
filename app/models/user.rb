@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :attendances
   has_many :lans, :through => :attendances
+  has_many :polls, :foreign_key => 'owner_id'
 
   validates :name,  :presence => true,
                     :uniqueness => true

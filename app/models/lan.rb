@@ -6,6 +6,7 @@ class Lan < ActiveRecord::Base
 
   has_many :attendances
   has_many :users, :through => :attendances
+  has_many :polls
 
   def self.current
     # TODO: chache this. at least put it in @some_var
