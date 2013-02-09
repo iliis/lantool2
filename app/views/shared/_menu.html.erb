@@ -12,7 +12,7 @@
 	</ul>
 
 	<% if admin? %>
-		Admin:
+		<hr>
 		<ul>
 			<li><%= link_to "Mailinglist verwalten", 'mailinglist/manage' %></li>
 			<li><%= link_to "alle Benutzer", users_path %></li>
@@ -23,8 +23,8 @@
 <div id="account">
 	<h2>Account</h2>
 	<% if current_user %>
-		Eingeloggt als <b><%= link_to current_user.name, user_path(current_user) %>.</b><br>
-		<%= link_to "logout", logout_path, :style=>"float: right" %><br class="clear">
+		Eingeloggt als <b><%= link_to current_user.name, user_path(current_user) %>.</b><br /><br />
+		<%= button_to "logout", logout_path, :method=>'get', :style=>"float: right" %><br class="clear" /><br />
 	<% else %>
 		<%= render 'shared/login_form' %>
 	<% end %>
