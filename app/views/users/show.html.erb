@@ -1,7 +1,7 @@
 <h1><%= @user.name %></h1>
 
-<% if @user = current_user %>
-	<%= link_to 'meinen Account bearbeiten', edit_user_path(@user) %><br /><br />
+<% if @user == current_user or admin? %>
+	<%= link_to (image_tag 'icons/pencil.png')+' Account bearbeiten', edit_user_path(@user) %><br /><br />
 <% end %>
 
 Nick: <b><%= @user.nick %></b><br /></br />

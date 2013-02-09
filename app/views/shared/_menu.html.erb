@@ -1,25 +1,31 @@
 <div id="links">
-  <%= link_to image_tag("logo.png", :id => 'logo'), root_url %>
+	<% if Rails.env.development? %>
+		<%= link_to image_tag("logo_devel.png", :id => 'logo'), root_url %>
+	<% else %>
+		<%= link_to image_tag("logo.png", :id => 'logo'), root_url %>
+	<% end %>
 
-  <ul>
-    <li><%= link_to "FAQ", faqs_path %></li>
-    <li><%= link_to "Games", games_path %></li>
-  </ul>
+	<ul>
+		<li><%= link_to "FAQ", faqs_path %></li>
+		<li><%= link_to "Games", games_path %></li>
+		<li><%= link_to "Benutzer", lan_participants_path %></li>
+	</ul>
 
-  <% if admin? %>
-    Admin:
-    <ul>
-      <li><%= link_to "Mailinglist verwalten", 'mailinglist/manage' %></li>
-    </ul>
-  <% end %>
+	<% if admin? %>
+		Admin:
+		<ul>
+			<li><%= link_to "Mailinglist verwalten", 'mailinglist/manage' %></li>
+			<li><%= link_to "alle Benutzer", users_path %></li>
+		</ul>
+	<% end %>
 </div>
 
 <div id="account">
-  <h2>Account</h2>
-  <% if current_user %>
-    Eingeloggt als <b><%= link_to current_user.name, user_path(current_user) %>.</b><br>
-    <%= link_to "logout", logout_path, :style=>"float: right" %><br class="clear">
-  <% else %>
-    <%= render 'shared/login_form' %>
-  <% end %>
+	<h2>Account</h2>
+	<% if current_user %>
+		Eingeloggt als <b><%= link_to current_user.name, user_path(current_user) %>.</b><br>
+		<%= link_to "logout", logout_path, :style=>"float: right" %><br class="clear">
+	<% else %>
+		<%= render 'shared/login_form' %>
+	<% end %>
 </div>

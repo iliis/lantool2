@@ -35,4 +35,13 @@ private
       end
     end
   end
+
+  def authenticate_specific_user(u)
+	  if current_user.present? and (current_user.admin? or (u.present? and u == current_user))
+		  true
+	  else
+		  redirect_to(root_path, :notice => "Keine Berechtigung.") and return false
+	  end
+  end
+			  
 end

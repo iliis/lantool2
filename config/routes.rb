@@ -30,6 +30,7 @@ LanTool2::Application.routes.draw do
   resources :sessions
   resources :games
   resources :faqs, :path => 'faq' 
+  resources :polls
 
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'

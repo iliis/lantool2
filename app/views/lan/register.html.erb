@@ -1,7 +1,7 @@
 <% content_for :site_title do %>Anmeldung: LAN, <%= @short_descr %><% end %>
 <% content_for :page_title do %>Anmeldung LAN<% end %>
-<% content_for :page_subtitle do if Lan.current %>
-<%= link_to "Teilnehmer: #{Lan.current.users.count}", :action => 'participants' %>
+<% content_for :page_subtitle do if @lan %>
+<%= link_to "Teilnehmer: #{@lan.users.count}", :action => 'participants' %>
 <% end end %>
 
 <%= image_tag 'img.jpg', :alt => "September '12" %>
