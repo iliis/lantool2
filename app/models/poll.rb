@@ -6,8 +6,19 @@ class Poll < ActiveRecord::Base
 
   validates :owner, :presence => true
   validates :lan,   :presence => true
+  validates :type,  :presence => true
   validates :expiration_date, :presence => true
   validate  :expiration_in_future
+
+  def to_partial_path
+    "polls/#{self.class.name.underscore}"
+  end
+
+  def readable_type
+    # return type in German (or whatever)
+    # maybe use proper internalization here and specify subtypes in translation file (using generic stuff here)
+    self.class.name
+  end
 
 private
   def expiration_in_future

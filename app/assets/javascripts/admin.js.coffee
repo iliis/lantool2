@@ -13,7 +13,7 @@ onResize = (ctx) ->
 
 $ ->
   canvas = document.getElementById 'testcanvas'
-  if canvas.getContext
+  if canvas && canvas.getContext
     ctx = canvas.getContext '2d'
     onResize ctx
     window.addEventListener 'resize', -> onResize ctx

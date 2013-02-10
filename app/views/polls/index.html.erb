@@ -1,0 +1,24 @@
+<h1>Abstimmungen</h1>
+
+<% if @polls.empty? %>
+	<hr />
+	<b>Keine Abstimmungen verfügbar</b>
+<% else %>
+	<table class="striped" border=0 cellspacing=0 cellpadding=0 vspace=0 width="100%">
+		<thead>
+			<tr>
+				<td></td>
+				<td>Titel</td>
+				<td>Typ</td>
+				<td>Stimmen</td>
+				<td>Ende</td>
+				<td></td> 
+			</tr>
+		</thead>
+		<tbody>
+			<% @polls.each do |p| %>
+				<%= render :partial => 'polls/poll_tbl', :locals => {:poll => p} %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
