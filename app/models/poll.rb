@@ -1,3 +1,6 @@
+require 'action_view'
+include ActionView::Helpers::DateHelper
+
 class Poll < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :lan
@@ -5,9 +8,10 @@ class Poll < ActiveRecord::Base
   has_many :options, :dependent => :destroy, :class_name => "PollOption"
   has_many :votes,   :dependent => :destroy, :class_name => "PollVote"
 
-  attr_accessible :expiration_date, :title, :type
+  attr_accessible :expiration_date, :title, :type, :description
+  attr_accessible :expiration_in_hours, :expiration_in_minutes
 
-  validates :owner, :lan, :type, :expiration_date, :presence => true
+  validates :owner, :lan, :type, :title, :expiration_date, :presence => true
   validate  :expiration_in_future
 
   def to_partial_path
@@ -20,14 +24,51 @@ class Poll < ActiveRecord::Base
     self.class.name
   end
 
+  def all_types
+    # list all descendants of this class
+    # descendants only works with Application.config.cache_classes = true, otherwise we get an empty list
+    # so for development we need a workaround...
+    Rails.application.eager_load! if Rails.env.development?
+    return Poll.descendants.collect {|p| [p.new.readable_type, p.name]}
+  end
+
   def expired?
-    expiration_date <= DateTime.now
+    expiration_date.past?
+  end
+
+  def expiration_in
+    # give something like "2 days, 1h 13m"
+    distance_of_time_in_words_to_now(self.expiration_date)
+  end
+
+  def expiration_in=(t)
+    self.expiration_date = DateTime.parse(t)
+  end
+
+  # TODO: these are very inexact, this results in minutes 'falling off' when updating a form,
+  # also gives wrong results for past dates
+  def expiration_in_hours
+    ((expiration_date - DateTime.now) / 1.hour).floor if expiration_date
+  end
+
+  def expiration_in_minutes
+    (((expiration_date - DateTime.now) / 1.hour - expiration_in_hours) * 1.minute).floor if expiration_date
+  end
+
+  def expiration_in_hours=(h)
+    self.expiration_date ||= DateTime.now
+    self.expiration_date += h.to_i.hour
+  end
+
+  def expiration_in_minutes=(m)
+    self.expiration_date ||= DateTime.now
+    self.expiration_date += m.to_i.minute
   end
 
   def countdown_html
     ('<time class="countdown" datetime="'+expiration_date.getutc.iso8601.to_s + \
      '" timestamp="'+expiration_date.to_i.to_s+'">' + \
-     expiration_date.to_s+'</time>').html_safe
+     expiration_in+'</time>').html_safe
   end
 
   # overwrite this method if necessary
@@ -59,7 +100,7 @@ class Poll < ActiveRecord::Base
 
   def expiration_in_future
 	  if expiration_date and expiration_date <= DateTime.now
-		  errors.add(:expiration_date, "muss in der Zukunft liegen")
+		  errors.add(:expiration_date, "muss in der Zukunft liegen (eingegebenes Ende: vor "+expiration_in+")")
 	  end
   end
 

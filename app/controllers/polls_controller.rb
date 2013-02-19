@@ -4,7 +4,7 @@
 class PollsController < ApplicationController
   protect_from_forgery
 
-  before_filter :authenticate, :only => [:vote, :receive_vote]
+  before_filter :authenticate, :except => [:index, :show]
 
   def index
     @polls = Lan.current.polls
@@ -33,6 +33,24 @@ class PollsController < ApplicationController
       redirect_to(poll_path(@poll), :notice => 'Dine Stimme wurde gezählt.')
     else
       redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')
+    end
+  end
+
+  def new
+    @poll = Poll.new
+  end
+
+  def create
+    @poll = Poll.new(params[:poll])
+
+    @poll.lan = Lan.current
+    @poll.owner = current_user
+
+    if @poll.save
+      flash[:notice] = 'neue Abstimmung gespeichert'
+      redirect_to :action => 'index'
+    else
+      render :action => 'new'
     end
   end
 

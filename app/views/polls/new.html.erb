@@ -1,0 +1,46 @@
+<h1>neue Abstimmung erstellen</h1>
+
+<%= render 'shared/form_errors', :errors => @poll.errors.full_messages %>
+
+<%= form_for @poll do |f| %>
+  <table style="width:100%">
+    <tr>
+      <td><%= f.label :title, "Titel:" %></td>
+      <td><%= f.label :type, "Typ:" %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.text_field :title, :style => "width: 100%", :class=>'title' %></td>
+      <td><%= f.select :type, @poll.all_types %></td>
+    </tr>
+
+    <tr>
+      <td colspan=2>
+        Läuft ab in
+
+        <%= f.text_field :expiration_in_hours, :size => 5 %>
+        <%= f.label :expiration_in_hours, "Stunden" %>
+
+        und
+
+        <%= f.text_field :expiration_in_minutes, :size => 5 %>
+        <%= f.label :expiration_in_minutes, "Minuten" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan=2>
+        <%= f.label :description, "Beschreibung:" %> <br />
+        <%= f.text_area :description %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td></td>
+      <td>
+        <%= f.submit "speichern", :style => "width:100%" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
