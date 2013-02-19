@@ -31,6 +31,8 @@ LanTool2::Application.routes.draw do
   resources :games
   resources :faqs, :path => 'faq' 
   resources :polls
+  match 'polls/:id/vote' => 'polls#vote', :as => 'vote_poll'
+  put 'polls/:id/receive_vote' => 'polls#receive_vote'
 
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'

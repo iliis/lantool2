@@ -1,0 +1,7 @@
+Yes or No?
+<%= form_for @poll, :url => {:action => :receive_vote } do |f| %>
+	<%= radio_button_tag :vote, 'yes' %> <%= label_tag :vote_yes, 'Ja' %>
+	<%= radio_button_tag :vote, 'no'  %> <%= label_tag :vote_no,  'Nein' %>
+	<br />
+	<%= f.submit 'abstimmen' %>
+<% end %>

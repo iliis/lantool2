@@ -27,6 +27,7 @@ class LanController < ApplicationController
         render 'registration_successfull'
       else
         #undo inserts
+        # todo: reimplement this cleanly (check for existing user in db, don't allow removing other users's registration etc.)
         user.delete if user_ok
         att.delete  if att_ok
 

@@ -36,6 +36,17 @@ class User < ActiveRecord::Base
     name.split(' ').first
   end
 
+  # some syntactic sugar
+  def self.current
+    # this is only available in Controller::Base!
+    # todo: fix this
+    current_user
+  end
+
+  def has_voted_on?(poll)
+    poll.has_vote_from?(self)
+  end
+
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt

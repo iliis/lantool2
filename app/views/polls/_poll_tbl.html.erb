@@ -1,10 +1,9 @@
-<tr class="tr_link" onclick="window.location.href = '<%= edit_poll_path(poll) %>'">
+<tr class="tr_link" onclick="window.location.href = '<%= vote_poll_path(poll) %>'">
 	<td width="16px"><%= image_tag 'icons/asterisk_yellow.png', :alt => 'neu' %></td>
-	<td><b><%= poll.title %></b></td>
+	<td><b><%= link_to poll.title, vote_poll_path(poll) %></b></td>
 	<td><%= poll.readable_type %></td>
-	<td>0</td>
-	<td><time class="countdown" datetime="<%= poll.expiration_date.getutc.iso8601 %>" timestamp="<%= poll.expiration_date.to_i %>">
-		<%= poll.expiration_date %></time></td>
+	<td><%= poll.votes.count %></td>
+	<td><%= poll.countdown_html %></td>
 		<td><% if admin? or (logged_in? and poll.user == current_user) %>
 				<%= link_to (image_tag 'icons/pencil.png', :alt => 'bearbeiten'), edit_poll_path(poll) %>
 			<% end %></td>
