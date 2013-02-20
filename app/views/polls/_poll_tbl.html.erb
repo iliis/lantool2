@@ -1,5 +1,5 @@
-<tr class="tr_link" onclick="window.location.href = '<%= vote_poll_path(poll) %>'">
-	<td width="16px"><%= image_tag 'icons/asterisk_yellow.png', :alt => 'neu' %></td>
+<tr class="tr_link<%= " expired" if poll.expired? %>" onclick="window.location.href = '<%= vote_poll_path(poll) %>'">
+	<td width="16px"><%= image_tag('icons/asterisk_yellow.png', :alt => 'neu') if current_user and !current_user.has_voted_on?(poll) %></td>
 	<td><b><%= link_to poll.title, vote_poll_path(poll) %></b></td>
 	<td><%= poll.readable_type %></td>
 	<td><%= poll.votes.count %></td>

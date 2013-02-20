@@ -16,6 +16,10 @@ class YesNoPoll < Poll
     self.votes.where(:option_id => self.options.where(:text => 'no'))
   end
 
+  def readable_type
+    "Ja / Nein"
+  end
+
 private
 
   def create_options

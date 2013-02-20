@@ -7,13 +7,17 @@ class PollsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show]
 
   def index
-    @polls = Lan.current.polls
+    @polls = Lan.current.polls.order("created_at")
   end
 
   def show
     @poll = Poll.find(params[:id])
   end
-  
+
+
+# voting
+# ////////////////////////////////
+
   def vote
     @poll = Poll.find(params[:id])
 
@@ -36,12 +40,24 @@ class PollsController < ApplicationController
     end
   end
 
+
+# create new poll
+# ////////////////////////////////
+
+  # first page of form
+  # (maybe move this into new or something)
+  def choose_new_type
+    @types = Poll.all_types_for_select
+  end
+
+  # second page, has to be customized according to type
+  # additional form fields are loaded from polls/new_forms/
   def new
-    @poll = Poll.new
+    @poll = Poll.class_from_string(params[:type]).new(params[:poll])
   end
 
   def create
-    @poll = Poll.new(params[:poll])
+    @poll = new
 
     @poll.lan = Lan.current
     @poll.owner = current_user

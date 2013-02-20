@@ -27,12 +27,14 @@ LanTool2::Application.routes.draw do
   get 'logout' => 'sessions#destroy', :as => 'logout'
   get 'signup' => 'users#new',        :as => 'signup'
 
+  match 'polls/new_type' => 'polls#choose_new_type', :as => 'create_poll'
+  match 'polls/:id/vote' => 'polls#vote', :as => 'vote_poll'
+  put 'polls/:id/receive_vote' => 'polls#receive_vote'
+  post 'polls/new' => 'polls#new'
   resources :sessions
   resources :games
   resources :faqs, :path => 'faq' 
-  resources :polls
-  match 'polls/:id/vote' => 'polls#vote', :as => 'vote_poll'
-  put 'polls/:id/receive_vote' => 'polls#receive_vote'
+  resources :polls, :except => [:new]
 
   resources :mailinglists, :only => [:new, :create, :destroy], :path => 'mailinglist'
   match 'mailinglist' => 'mailinglists#new'

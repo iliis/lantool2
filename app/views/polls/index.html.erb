@@ -2,7 +2,7 @@
 
 <% if @polls.empty? %>
 	<hr />
-	<b>Keine Abstimmungen verfügbar</b>
+    <b>Keine Abstimmungen vorhanden: <%= link_to "Neue Erstellen.", new_poll_path %> </b>
 <% else %>
 	<table class="striped" border=0 cellspacing=0 cellpadding=0 vspace=0 width="100%">
 		<thead>

@@ -1,3 +1,6 @@
+#!/bin/env ruby
+#encoding: utf-8
+
 require 'action_view'
 include ActionView::Helpers::DateHelper
 
@@ -10,6 +13,11 @@ class Poll < ActiveRecord::Base
 
   attr_accessible :expiration_date, :title, :type, :description
   attr_accessible :expiration_in_hours, :expiration_in_minutes
+  attr_accessor   :expiration_in_hours, :expiration_in_minutes
+
+  before_validation do
+    self.expiration_date = DateTime.now + expiration_in_hours.to_i.hours + expiration_in_minutes.to_i.minutes
+  end
 
   validates :owner, :lan, :type, :title, :expiration_date, :presence => true
   validate  :expiration_in_future
@@ -24,12 +32,26 @@ class Poll < ActiveRecord::Base
     self.class.name
   end
 
-  def all_types
+  def self.all_types
     # list all descendants of this class
     # descendants only works with Application.config.cache_classes = true, otherwise we get an empty list
     # so for development we need a workaround...
     Rails.application.eager_load! if Rails.env.development?
-    return Poll.descendants.collect {|p| [p.new.readable_type, p.name]}
+    return Poll.descendants
+  end
+
+  def self.all_types_for_select
+    all_types.collect {|p| [p.new.readable_type, p.name]}
+  end
+
+  def self.class_from_string(type)
+    c = type.constantize
+
+    if c < Poll # only create subtypes of Poll (not arbitrary classes)
+      c
+    else
+      nil
+    end
   end
 
   def expired?
@@ -45,30 +67,22 @@ class Poll < ActiveRecord::Base
     self.expiration_date = DateTime.parse(t)
   end
 
-  # TODO: these are very inexact, this results in minutes 'falling off' when updating a form,
-  # also gives wrong results for past dates
-  def expiration_in_hours
-    ((expiration_date - DateTime.now) / 1.hour).floor if expiration_date
-  end
-
-  def expiration_in_minutes
-    (((expiration_date - DateTime.now) / 1.hour - expiration_in_hours) * 1.minute).floor if expiration_date
-  end
-
-  def expiration_in_hours=(h)
-    self.expiration_date ||= DateTime.now
-    self.expiration_date += h.to_i.hour
-  end
-
-  def expiration_in_minutes=(m)
-    self.expiration_date ||= DateTime.now
-    self.expiration_date += m.to_i.minute
-  end
-
   def countdown_html
     ('<time class="countdown" datetime="'+expiration_date.getutc.iso8601.to_s + \
      '" timestamp="'+expiration_date.to_i.to_s+'">' + \
      expiration_in+'</time>').html_safe
+  end
+
+  def custom_form
+    'polls/new_forms/'+self.class.name.underscore
+  end
+
+  def custom_form_path
+    Rails.root.join('app', 'views', 'polls', 'new_forms', "_"+self.class.name.underscore+".html.erb")
+  end
+
+  def has_custom_form?
+    File.exists?(custom_form_path)
   end
 
   # overwrite this method if necessary

@@ -20,6 +20,8 @@
 }
 
 
+$link_color: #FF6138;
+
 html
 {
 	background-color: #222;
@@ -40,7 +42,7 @@ b
 
 a
 {
-	color: #FF6138;
+	color: $link_color;
 	text-decoration: none;
 }
 
@@ -154,6 +156,21 @@ tr.tr_link:hover, tr.tr_hover:hover
 tr.tr_link
 {
 	cursor: pointer;
+}
+
+tr.expired
+{
+  color: #888;
+}
+
+tr.expired:hover
+{
+  background-color: desaturate(#CFF55D, 40%);
+}
+
+tr.expired a
+{
+  color: desaturate($link_color, 40%);
 }
 
 img

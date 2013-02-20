@@ -1,0 +1,7 @@
+<h1>neue Abstimmung erstellen</h1>
+<%= form_tag(:action => 'new') do -%>
+  <%= label_tag(:type, 'Verfahren:') %>
+  <%= select_tag(:type, options_for_select(@types, "SingleVotePoll")) %>
+
+  <%= submit_tag("erstellen") %>
+<% end -%>

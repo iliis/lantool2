@@ -2,16 +2,16 @@
 
 <%= render 'shared/form_errors', :errors => @poll.errors.full_messages %>
 
-<%= form_for @poll do |f| %>
+<%= form_for(@poll, :url => {:controller => "polls", :action => "create"}) do |f| %>
   <table style="width:100%">
     <tr>
       <td><%= f.label :title, "Titel:" %></td>
-      <td><%= f.label :type, "Typ:" %></td>
+      <td>Typ:</td>
     </tr>
 
     <tr>
       <td><%= f.text_field :title, :style => "width: 100%", :class=>'title' %></td>
-      <td><%= f.select :type, @poll.all_types %></td>
+      <td><%= @poll.readable_type %> <%= hidden_field_tag :type, :value => @poll.class.name %></td>
     </tr>
 
     <tr>
@@ -31,9 +31,15 @@
     <tr>
       <td colspan=2>
         <%= f.label :description, "Beschreibung:" %> <br />
-        <%= f.text_area :description %>
+        <%= f.text_area :description, :style=>"height: 60pt" %>
       </td>
     </tr>
+
+      <tr class="poll_form_additional">
+        <td colspan=2>
+          <%= render @poll.custom_form, :poll => @poll, :form => f   if @poll.has_custom_form? %>
+        </td>
+      </td>
 
 
     <tr>
