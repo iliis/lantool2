@@ -5,7 +5,7 @@ class SingleVotePoll < Poll
   attr_accessor   :options_str
 
   after_create do
-    # parse string here
+    options_str.split(/\r?\n/).each { |o| add_option(o) }
   end
 
   def readable_type

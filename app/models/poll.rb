@@ -87,16 +87,18 @@ class Poll < ActiveRecord::Base
 
   # overwrite this method if necessary
   def vote!(data, user)
+    raise "already voted" if user.has_voted_on?(self)
     return false if user.has_voted_on?(self)
 
     v = PollVote.new
     v.user = user
     v.poll = self
     
-    o = self.options.where(:text => data).limit(1).first
+    o = self.options.find(data)
     if o.present?
       v.option = o
     else
+      raise "Auswahl nicht gefunden: Poll "+self.id.to_s+" has no option "+data
       return false
     end
 

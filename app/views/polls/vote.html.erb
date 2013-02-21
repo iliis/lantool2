@@ -1,5 +1,7 @@
 <h1><%= @poll.title %></h1>
 Ende: <%= @poll.countdown_html %>
 <br />
+<%= @poll.description %>
+<br />
 <br />
 <%= render 'polls/vote_forms/'+@poll.class.name.underscore %>

@@ -9,11 +9,11 @@ class YesNoPoll < Poll
 
   def yes_votes
     # this looks like it could be implemented in a less verbose and nested way...
-    self.votes.where(:option_id => self.options.where(:text => 'yes'))
+    self.votes.where(:option_id => self.options.where(:text => 'Ja'))
   end
 
   def no_votes
-    self.votes.where(:option_id => self.options.where(:text => 'no'))
+    self.votes.where(:option_id => self.options.where(:text => 'Nein'))
   end
 
   def readable_type
@@ -23,7 +23,7 @@ class YesNoPoll < Poll
 private
 
   def create_options
-    add_option('yes')
-    add_option('no')
+    add_option('Ja')
+    add_option('Nein')
   end
 end
