@@ -21,8 +21,8 @@ class PollsController < ApplicationController
   def vote
     @poll = Poll.find(params[:id])
 
-    show_poll_if_expired(@poll)
-    redirect_to(poll_path(@poll)) if current_user.has_voted_on?(@poll)
+    show_poll_if_expired(@poll) and return
+    redirect_to(poll_path(@poll)) and return if current_user.has_voted_on?(@poll)
 
     # todo: pull out vote of current user (if any)
     # @vote = @poll.
@@ -33,7 +33,7 @@ class PollsController < ApplicationController
     @poll = Poll.find(params[:id])
     show_poll_if_expired(@poll)
     
-    if @poll.vote!(params[:vote], current_user)
+    if @poll.vote(params[:vote], current_user)
       redirect_to(poll_path(@poll), :notice => 'Dine Stimme wurde gezählt.')
     else
       redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')

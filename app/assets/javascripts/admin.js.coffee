@@ -1,6 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+//= require graph.js
+
 onDraw = (c, w, h) ->
   c.fillStyle = 'rgba(0,0,0,1)'
   c.fillRect 10,10,200,100
@@ -13,6 +15,12 @@ onDraw = (c, w, h) ->
   c.fillStyle = 'rgba(255,155,0,0.5)'
   c.fillRect 0,0,10,10
   c.fillRect w-10,h-10,10,10
+
+  options = [
+    { votes: 2, text: "hallo", color: '#ffff00' }
+    { votes: 1, text: "welt",  color: '#ff5500' }
+  ]
+  draw_bar_chart c, parse_options(document.getElementById 'testcanvas')
 
 onResize = (ctx) ->
   ctx.canvas.width        = ctx.canvas.clientWidth

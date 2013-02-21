@@ -1,5 +1,14 @@
 <h1><%= @poll.title %></h1>
+<%= @poll.description %>
+<br />
+<br />
+<canvas class="poll_canvas">
+	<% @poll.options.each do |o| %>
+		<option votes="<%= o.votes.count %>"
+		        text="<%= o.text %>"
+		        color="#ffaa00" />
+	<% end %>
+</canvas>
+<br />
+Stimmen total: <%= @poll.votes.count %> <br/>
 Ende: <%= @poll.countdown_html %>
-<br />
-<br />
-Stimmen total: <%= @poll.votes.count %>

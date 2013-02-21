@@ -3,9 +3,7 @@ class PollVote < ActiveRecord::Base
 
   belongs_to :poll
   belongs_to :user
-  belongs_to :option, :class_name => "PollOption"
+  belongs_to :option, :class_name => "PollOption", :foreign_key => "poll_option_id"
 
-  validates :poll, :presence => :true
-  validates :user, :presence => :true
-  validates :option, :presence => true
+  validates :poll, :user, :option, :presence => :true
 end

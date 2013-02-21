@@ -86,7 +86,8 @@ class Poll < ActiveRecord::Base
   end
 
   # overwrite this method if necessary
-  def vote!(data, user)
+  # maybe implement better error handling than just throwing errors around...
+  def vote(data, user)
     raise "already voted" if user.has_voted_on?(self)
     return false if user.has_voted_on?(self)
 
@@ -98,11 +99,13 @@ class Poll < ActiveRecord::Base
     if o.present?
       v.option = o
     else
-      raise "Auswahl nicht gefunden: Poll "+self.id.to_s+" has no option "+data
+      raise "Auswahl nicht gefunden: Poll "+self.id.to_s+" hat keine Option "+data
       return false
     end
 
-    v.save
+    unless v.save
+      raise "Deine Stimme konnte nicht gezählt werden."
+    end
   end
 
   def has_vote_from?(user)

@@ -1,11 +1,12 @@
 //= require jquery.timeago.js
 //= require jquery.timeago.de.js
+//= require graph.js
 
 jQuery.timeago.settings.allowFuture = true
 jQuery.timeago.settings.refreshMillis = 30000
 
 $ ->
-  $('.countdown').each (i,obj) ->
+  $('.countdown').each (i, obj) ->
     timestamp = $(obj).attr 'timestamp'
     d   = new Date
     now = new Date
@@ -15,3 +16,22 @@ $ ->
       $(obj).timeago()
     else
       $(obj).html 'abgelaufen'
+
+
+$ ->
+  $('.poll_canvas').each (i, obj) ->
+    if obj.getContext
+      ctx = obj.getContext '2d'
+      onResize ctx
+      window.addEventListener 'resize', -> onResize ctx
+
+onResize = (ctx) ->
+  ctx.canvas.width        = ctx.canvas.clientWidth
+  # maintain 4:3 aspect ratio
+  ctx.canvas.height       = ctx.canvas.clientHeight #Width * 3 / 4
+  onDraw ctx
+
+onDraw = (ctx) ->
+  draw_bar_chart ctx, parse_options ctx.canvas
+
+
