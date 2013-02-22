@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   helper_method :admin?
   helper_method :logged_in?
 
+  # some random colors for poll options (todo: find better solution for this)
+  @colors = ['#33bb33', '#bb3333', '#3333bb', '#bbbb33', '#aa8811', '#33bbbb', '#bb33bb']
+
 private
   
   def current_user

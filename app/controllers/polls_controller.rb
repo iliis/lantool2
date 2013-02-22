@@ -21,8 +21,7 @@ class PollsController < ApplicationController
   def vote
     @poll = Poll.find(params[:id])
 
-    show_poll_if_expired(@poll) and return
-    redirect_to(poll_path(@poll)) and return if current_user.has_voted_on?(@poll)
+    show_poll(@poll) and return unless @poll.can_be_voted_on_from?(current_user)
 
     # todo: pull out vote of current user (if any)
     # @vote = @poll.
@@ -31,10 +30,11 @@ class PollsController < ApplicationController
 
   def receive_vote
     @poll = Poll.find(params[:id])
-    show_poll_if_expired(@poll)
+
+    show_poll(@poll) and return unless @poll.can_be_voted_on_from?(current_user)
     
     if @poll.vote(params[:vote], current_user)
-      redirect_to(poll_path(@poll), :notice => 'Dine Stimme wurde gezählt.')
+      redirect_to(poll_path(@poll), :notice => 'Deine Stimme wurde gezählt.')
     else
       redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')
     end
@@ -72,7 +72,7 @@ class PollsController < ApplicationController
 
 private
 
-  def show_poll_if_expired(poll)
-    redirect_to(poll_path(poll), :notice => 'diese Abstimmung ist abgelaufen') if poll.expired?
+  def show_poll(poll)
+    redirect_to(poll_path(poll), :notice => 'kann nicht abstimmen: Zeit abgelaufen / keine Berechtigung / bereits abgestimmt')
   end
 end

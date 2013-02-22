@@ -3,10 +3,10 @@
 <br />
 <br />
 <canvas class="poll_canvas">
-	<% @poll.options.each do |o| %>
+	<% @poll.options.each_with_index do |o,i| %>
 		<option votes="<%= o.votes.count %>"
 		        text="<%= o.text %>"
-		        color="#ffaa00" />
+				color="<%= LanTool2::Application::COLORS[i] %>" />
 	<% end %>
 </canvas>
 <br />

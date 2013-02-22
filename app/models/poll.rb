@@ -73,6 +73,19 @@ class Poll < ActiveRecord::Base
      expiration_in+'</time>').html_safe
   end
 
+  def can_be_voted_on_from?(user)
+    !self.expired? and user and !user.has_voted_on?(self)
+  end
+
+  def vote_or_view_path(user)
+    if self.can_be_voted_on_from?(user)
+      vote_poll_path(self)
+    else
+      poll_path(self)
+    end
+  end
+
+
   def custom_form
     'polls/new_forms/'+self.class.name.underscore
   end
@@ -105,7 +118,10 @@ class Poll < ActiveRecord::Base
 
     unless v.save
       raise "Deine Stimme konnte nicht gezählt werden."
+      return false
     end
+
+    return true
   end
 
   def has_vote_from?(user)

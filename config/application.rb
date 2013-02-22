@@ -61,7 +61,10 @@ module LanTool2
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
-	# also load models from subfolders (eg. polls)
-	config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+    # also load models from subfolders (eg. polls)
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+
+    # some random colors for poll options (todo: find better solution for this)
+    COLORS = ['#33bb33', '#bb3333', '#3333bb', '#bbbb33', '#aa8811', '#33bbbb', '#bb33bb']
   end
 end
