@@ -60,6 +60,7 @@ module LanTool2
     config.assets.version = '1.0'
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+    config.assets.precompile += ['*.css', '*.js']
 
     # also load models from subfolders (eg. polls)
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
