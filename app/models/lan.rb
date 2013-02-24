@@ -4,9 +4,9 @@ class Lan < ActiveRecord::Base
   validates :endtime,   :presence => true
   validate  :start_before_end?
 
-  has_many :attendances
+  has_many :attendances, :dependent => :destroy
   has_many :users, :through => :attendances
-  has_many :polls
+  has_many :polls, :dependent => :destroy
 
   def self.current
     # TODO: chache this. at least put it in @some_var

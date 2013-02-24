@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
-  has_many :attendances
+  has_many :attendances, :dependent => :destroy
   has_many :lans, :through => :attendances
-  has_many :polls, :foreign_key => 'owner_id'
+  has_many :polls, :foreign_key => 'owner_id', :dependent => :destroy
 
   validates :name,  :presence => true,
                     :uniqueness => true
