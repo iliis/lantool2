@@ -10,7 +10,8 @@ class Mailinglist < ActiveRecord::Base
 
   def self.send_to_all(subject, message)
     Mailinglist.all.each do |u|
-      LanMailer.general_mail(u, subject, message)
+      LanMailer.enqueue_general_mail_to_user(u, subject, message)
     end
+    LanMailer.start_processing
   end
 end

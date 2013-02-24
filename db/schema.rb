@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219222036) do
+ActiveRecord::Schema.define(:version => 20130224201457) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(:version => 20130219222036) do
     t.datetime "updated_at",        :null => false
     t.boolean  "registration_open"
     t.text     "description"
+  end
+
+  create_table "mail_queues", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "error"
   end
 
   create_table "mailinglists", :force => true do |t|
