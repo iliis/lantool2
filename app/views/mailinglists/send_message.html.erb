@@ -19,5 +19,8 @@ Newlines werden durch durch &lt;br&gt; ersetzt!<br><br>
 
   <hr class="field_seperator">
 
+  <%= check_box_tag(:exclude_registered, "true") %>
+  <%= label_tag(:exclude_registered, "ohne bereits angemeldete User") %>
+
   <%= submit_tag("an #{@recipient_count} Leute senden") %>
 <% end %>

@@ -8,9 +8,11 @@ class Mailinglist < ActiveRecord::Base
                     :email => true,
                     :uniqueness => true
 
-  def self.send_to_all(subject, message)
+  def self.send_to_all(subject, message, exclude_registered=false)
     Mailinglist.all.each do |u|
-      LanMailer.enqueue_general_mail_to_user(u, subject, message)
+      if !exclude_registered or (! Lan.current.users.find_by_email(u.email).present?)
+        LanMailer.enqueue_general_mail_to_user(u, subject, message)
+      end
     end
     LanMailer.start_processing
   end

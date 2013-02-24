@@ -65,8 +65,8 @@ class MailinglistsController < ApplicationController
       @subject = params[:subject]
 
       if !@message.blank? and !@subject.blank?
-        # TODO: implement this in seperate thread and provide some sort of live-updates
-        Mailinglist.send_to_all(@subject, @message.gsub(/\r?\n/,'<br>').html_safe)
+        # TODO: implement this in seperate thread (done: via rake) and provide some sort of live-updates
+        Mailinglist.send_to_all(@subject, @message.gsub(/\r?\n/,'<br>').html_safe, params[:exclude_registered]=='true')
         flash[:notice] = "gesendet"
       else
         @lan = Lan.current
