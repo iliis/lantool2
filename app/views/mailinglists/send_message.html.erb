@@ -6,7 +6,7 @@
 
 <%= render 'shared/form_errors' %>
 
-Newlines werden durch durch &lt;br&gt; ersetzt!<br><br>
+Newlines werden durch &lt;br&gt; ersetzt!<br><br>
 
 <%= form_tag do %>
   <%= label_tag :subject, "Subject:" %>
@@ -19,8 +19,14 @@ Newlines werden durch durch &lt;br&gt; ersetzt!<br><br>
 
   <hr class="field_seperator">
 
-  <%= check_box_tag(:exclude_registered, "true") %>
-  <%= label_tag(:exclude_registered, "ohne bereits angemeldete User") %>
+  <%= label_tag(:recipient_group, "Empfänger:") %>
+  <%= select_tag(:recipient_group,
+  options_for_select({
+	  "alle auf Mailingliste (#{@recipient_count} Leute)"                     => :all_from_list,
+	  "Liste ohne angemeldete (#{@recipient_count_without_registered} Leute)" => :list_without_registered,
+		  "nur angemeldte (#{@registered_count} Leute)"                       => :only_registered},
+			  :all_from_list)) %>
 
-  <%= submit_tag("an #{@recipient_count} Leute senden") %>
+
+  <%= submit_tag("absenden") %>
 <% end %>

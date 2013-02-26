@@ -59,25 +59,41 @@ class MailinglistsController < ApplicationController
   end
 
   def send_message
-	  @recipient_count = Mailinglist.count
+    @recipient_count = Mailinglist.count
+    if Lan.current
+      @registered_count = Lan.current.users.count
+      @recipient_count_without_registered = Mailinglist.all_without_registered.count
+    else
+      @registered_count = 0
+      @recipient_count_without_registered = @recipient_count
+    end
 
-      @message = params[:message]
-      @subject = params[:subject]
+    @message = params[:message]
+    @subject = params[:subject]
 
-      if !@message.blank? and !@subject.blank?
-        # TODO: implement this in seperate thread (done: via rake) and provide some sort of live-updates
-        Mailinglist.send_to_all(@subject, @message.gsub(/\r?\n/,'<br>').html_safe, params[:exclude_registered]=='true')
-        flash[:notice] = "gesendet"
+    if !@message.blank? and !@subject.blank?
+      # TODO: implement this in seperate thread (done: via rake) and provide some sort of live-updates
+      msg = @message.gsub(/\r?\n/,'<br>').html_safe
+
+      if params[:recipient_group] == :list_whithout_registered
+        Mailinglist.send_to_all(@subject, msg, true)
+      elsif params[:recipient_group] == :only_registered
+        Mailinglist.send_to_registered(@subject, msg)
       else
-        @lan = Lan.current
-		if @lan
-			@subject = '[LAN] Einladung für '+@lan.time
-			@message = render_to_string :partial => 'new_template'
-		else
-			@subject = '[LAN] Einladung für KEINE AKTUELLE LAN'
-			@message = 'Es ist keine LAN als aktuell markiert. Du kannst dies unter [link to lan management] ändern.'
-		end
+        Mailinglist.send_to_all(@subject, msg)
       end
+
+      flash[:notice] = "gesendet"
+    else
+      @lan = Lan.current
+      if @lan
+        @subject = '[LAN] Einladung für '+@lan.time
+        @message = render_to_string :partial => 'new_template'
+      else
+        @subject = '[LAN] Einladung für KEINE AKTUELLE LAN'
+        @message = 'Es ist keine LAN als aktuell markiert. Du kannst dies unter [link to lan management] ändern.'
+      end
+    end
   end
 
 
