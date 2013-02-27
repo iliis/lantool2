@@ -1,6 +1,7 @@
 //= require jquery.timeago.js
 //= require jquery.timeago.de.js
 //= require graph.js
+//= require highcharts.js
 
 jQuery.timeago.settings.allowFuture = true
 jQuery.timeago.settings.refreshMillis = 30000
@@ -17,6 +18,31 @@ $ ->
     else
       $(obj).html 'abgelaufen'
 
+
+$ ->
+  $('.pie_chart').each (i, obj) ->
+    data = parse_options(obj)
+    data = (d for d in data when d.votes > 0) # filter data so options without votes don't clutter graph
+    new Highcharts.Chart({
+      chart:
+        renderTo: obj
+        type: 'pie'
+      series: [{data: data}]
+      credits:
+        enabled: false
+      title:
+        text: null
+      tooltip:
+        enabled: false
+      plotOptions:
+        pie:
+          dataLabels:
+            enabled: true
+            style:
+              fontSize: '12pt'
+            formatter:
+              -> '<b>' + this.point.name + '</b>: ' + this.y
+    })
 
 $ ->
   $('.poll_canvas').each (i, obj) ->

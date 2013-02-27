@@ -2,13 +2,15 @@
 <%= @poll.description %>
 <br />
 <br />
-<canvas class="poll_canvas">
+<div class='pie_chart'>
+<!-- <canvas class="poll_canvas"> -->
 	<% @poll.options.each_with_index do |o,i| %>
 		<option votes="<%= o.votes.count %>"
 		        text="<%= o.text %>"
-				color="<%= LanTool2::Application::COLORS[i] %>" />
+				color="<%= LanTool2::Application::COLORS[i] %>" >
 	<% end %>
-</canvas>
+	<!-- </canvas> -->
+</div>
 <br />
 Stimmen total: <%= @poll.votes.count %> <br/>
 Ende: <%= @poll.countdown_html %>

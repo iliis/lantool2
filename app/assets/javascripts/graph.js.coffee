@@ -12,9 +12,13 @@ text = (ctx, text, x, y, bold=false) ->
   data = []
   if obj.children.length > 0
     for c in obj.children
+      t = $(c).attr 'text'
+      v = parseInt $(c).attr('votes')
       data.push({
-        votes: parseInt $(c).attr('votes')
-        text:  $(c).attr 'text'
+        votes: v
+        y:     v
+        text:  t
+        name:  t
         color: $(c).attr 'color'
       })
   return data
