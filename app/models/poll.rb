@@ -101,8 +101,7 @@ class Poll < ActiveRecord::Base
   # overwrite this method if necessary
   # maybe implement better error handling than just throwing errors around...
   def vote(data, user)
-    raise "already voted" if user.has_voted_on?(self)
-    return false if user.has_voted_on?(self)
+    raise "Kann nicht abstimmen." if !self.can_be_voted_on_from?(user)
 
     v = PollVote.new
     v.user = user
