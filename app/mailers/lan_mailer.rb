@@ -34,7 +34,7 @@ class LanMailer < ActionMailer::Base
          :from => m.from,
          :subject => m.subject,
         ) do |format|
-      format.text {render :text => m.content}
+      format.text {render :text => m.clean_content}
       format.html {render :text => m.content}
     end
   end
@@ -51,6 +51,10 @@ class LanMailer < ActionMailer::Base
   end
 
 private
+
+  def valid_from_email
+    raise 'please set Settings.mailinglist_sender_email' if Settings.mailinglist_sender_email == 'EMAIL ADDRESS'
+  end
 
   #def set_settings_from_db
   #  smtp_settings ||= Settings.mailinglist_smtp_settings

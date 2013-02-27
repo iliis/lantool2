@@ -80,7 +80,7 @@ class MailinglistsController < ApplicationController
       elsif params[:recipient_group] == :only_registered
         Mailinglist.send_to_registered(@subject, msg)
       else
-        Mailinglist.send_to_all(@subject, msg)
+        Mailinglist.send_to_all(@subject, msg, false)
       end
 
       flash[:notice] = "gesendet"
