@@ -55,7 +55,7 @@ class LanController < ApplicationController
   end
 
   def faq
-    @faqs = FAQ.all
+    @faqs = Faq.all
   end
 
   def games
