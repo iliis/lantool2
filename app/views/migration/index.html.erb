@@ -1,0 +1,17 @@
+<h1>Import / Export</h1>
+
+<%= link_to 'download DB', :action => 'export' %>
+<hr>
+<%= form_tag({:action => 'import'}, :multipart => :true) do %>
+	<%= label_tag :import_file, 'Import:' %>
+	<%= file_field_tag :import_file %>
+
+	<br>
+
+	<%= check_box_tag :delete_all %>
+	<%= label_tag :delete_all, 'bestehende Daten löschen (nicht nötig, SQL sollte bereits DROP TABLEs enthalten)' %>
+
+	<br>
+
+	<%= submit_tag 'importieren' %>
+<% end %>

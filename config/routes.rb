@@ -46,6 +46,10 @@ LanTool2::Application.routes.draw do
   match 'mailinglist/receive_import' => 'mailinglists#receive_import'
   match 'mailinglist/send_message' => 'mailinglists#send_message'
 
+  match 'migration' => 'migration#index'
+  match 'export' => 'migration#export'
+  match 'import' => 'migration#import'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -19,7 +19,7 @@ text = (ctx, text, x, y, bold=false) ->
         y:     v
         text:  t
         name:  t
-        color: $(c).attr 'color'
+        #color: $(c).attr 'color'
       })
   return data
 

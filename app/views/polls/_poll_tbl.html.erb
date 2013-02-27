@@ -10,7 +10,7 @@
 	<td><%= poll.readable_type %></td>
 	<td><%= poll.votes.count %></td>
 	<td><%= poll.countdown_html %></td>
-		<td><% if admin? or (logged_in? and poll.user == current_user) %>
+		<td><% if admin? or (logged_in? and poll.owner == current_user) %>
 				<%= link_to (image_tag 'icons/pencil.png', :alt => 'bearbeiten'), edit_poll_path(poll) %>
 			<% end %></td>
 </tr>
