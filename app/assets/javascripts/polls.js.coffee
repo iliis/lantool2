@@ -44,6 +44,9 @@ $ ->
               -> '<b>' + this.point.name + '</b>: ' + this.y
     })
 
+
+
+###
 $ ->
   $('.poll_canvas').each (i, obj) ->
     if obj.getContext
@@ -60,4 +63,4 @@ onResize = (ctx) ->
 onDraw = (ctx) ->
   draw_bar_chart ctx, parse_options ctx.canvas
 
-
+###
