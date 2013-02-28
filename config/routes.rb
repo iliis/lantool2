@@ -1,6 +1,6 @@
 LanTool2::Application.routes.draw do
-  root :to => 'lan#register'
-  #root :to => 'polls#index'
+  #root :to => 'lan#register'
+  root :to => 'polls#index'
 
   match 'admin' => 'admin#index'
   match 'admin/canvastest' => 'admin#canvastest'
@@ -44,8 +44,7 @@ LanTool2::Application.routes.draw do
   match 'mailinglist/manage' => 'mailinglists#manage'
   match 'mailinglist/import' => 'mailinglists#import'
   match 'mailinglist/receive_import' => 'mailinglists#receive_import'
-  match 'mailinglist/send_message' => 'mailinglists#send_message'
-
+  match 'mailinglist/send_message' => 'mailinglists#send_message' 
   match 'migration' => 'migration#index'
   match 'export' => 'migration#export'
   match 'import' => 'migration#import'

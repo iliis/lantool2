@@ -1,5 +1,5 @@
 class MigrationController < ApplicationController
-  before_filter :authenticate_admin
+  before_filter :authenticate_admin, :only => [:export]
 
   def index
   end
@@ -10,6 +10,9 @@ class MigrationController < ApplicationController
   end
   
   def import 
+    # allow import without login when there is no user in DB
+    authenticate_admin if User.any?
+
     raise 'no file specified' if ! params[:import_file]
     Mysqldump.delete_all if params[:delete_all]
 
