@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224201457) do
+ActiveRecord::Schema.define(:version => 20130228120902) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -119,6 +119,15 @@ ActiveRecord::Schema.define(:version => 20130224201457) do
   end
 
   add_index "settings", ["target_type", "target_id", "var"], :name => "index_settings_on_target_type_and_target_id_and_var", :unique => true
+
+  create_table "user_activities", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "day"
+    t.integer  "hour"
+    t.integer  "activity_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "nick"

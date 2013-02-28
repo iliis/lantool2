@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
   # some random colors for poll options (todo: find better solution for this)
   @colors = ['#33bb33', '#bb3333', '#3333bb', '#bbbb33', '#aa8811', '#33bbbb', '#bb33bb']
 
+  before_filter do
+    current_user.update_activity # log users activity
+  end
+
+
 private
   
   def current_user
@@ -27,7 +32,7 @@ private
 
   def authenticate
     if current_user.present?
-      true
+      return true
     else
       session[:return_to] = request.url
       redirect_to(login_path, :notice => "Nur für angemeldete Benutzer.") and return false

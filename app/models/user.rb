@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :attendances, :dependent => :destroy
   has_many :lans, :through => :attendances
   has_many :polls, :foreign_key => 'owner_id', :dependent => :destroy
+  has_many :activities, :dependent => :destroy, :class_name => 'UserActivity'
 
   validates :name,  :presence => true,
                     :uniqueness => true
@@ -82,5 +83,9 @@ class User < ActiveRecord::Base
       tmp_user.errors[:email] << "nicht gefunden. Hast du dich für diese LAN angemeldet?"
       return tmp_user
     end
+  end
+
+  def update_activity
+    UserActivity.update(self)
   end
 end
