@@ -17,7 +17,7 @@ class MigrationController < ApplicationController
     Mysqldump.delete_all if params[:delete_all]
 
     Mysqldump.full_import_from_file(params[:import_file].path)
-    render :action => :index, :notice => 'Import erfolgreich'
+    redirect_to :action => :index, :notice => 'Import erfolgreich'
   end
 
 end
