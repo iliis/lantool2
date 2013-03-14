@@ -7,7 +7,11 @@ class PollsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show]
 
   def index
-    @polls = Lan.current.polls.order("created_at")
+    if Lan.current
+      @polls = Lan.current.polls.order("created_at")
+    else
+      @polls = []
+    end
   end
 
   def show
