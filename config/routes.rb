@@ -50,6 +50,8 @@ LanTool2::Application.routes.draw do
   match 'export' => 'migration#export'
   match 'import' => 'migration#import'
 
+  match 'activity' => 'activity#plot'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

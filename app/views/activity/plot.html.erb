@@ -1,0 +1,18 @@
+<h1>User Aktivität für aktuelle Lan</h1>
+
+<% if @users.empty? %>
+	Keine Benutzer gefunden. Existiert überhaupt eine aktuelle Lan?
+<% else %>
+<div class="activity_graph">
+	<data starttime="<%= @starttime %>" endtime="<%= @endtime %>">
+	<% @users.each do |u| %>
+		<user name="<%= u.name %>">
+		<!-- add a where here to filter for [starttime, endtime] -->
+		<% u.activities.each do |a| %>
+			<activity day="<%= a.day %>" hour="<%= a.hour %>" activity_count="<%= a.activity_count %>"></activity>
+		<% end %>	
+		</user>
+	<% end %>
+	</data>
+</div>
+<% end %>
