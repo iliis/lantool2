@@ -4,15 +4,16 @@
 	Keine Benutzer gefunden. Existiert überhaupt eine aktuelle Lan?
 <% else %>
 <div class="activity_graph">
-	<data starttime="<%= @starttime %>" endtime="<%= @endtime %>">
+	<data starttime="<%= @starttime.to_i*1000 %>" endtime="<%= @endtime.to_i*1000 %>">
 	<% @users.each do |u| %>
 		<user name="<%= u.name %>">
 		<!-- add a where here to filter for [starttime, endtime] -->
 		<% u.activities.each do |a| %>
-			<activity day="<%= a.day %>" hour="<%= a.hour %>" activity_count="<%= a.activity_count %>"></activity>
+			<activity day="<%= a.day.to_datetime.to_i*1000 %>" hour="<%= a.hour %>" activity_count="<%= a.activity_count %>"></activity>
 		<% end %>	
 		</user>
 	<% end %>
 	</data>
+	<canvas style="width:100%"></canvas>
 </div>
 <% end %>

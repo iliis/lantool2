@@ -3,6 +3,7 @@ wp
 *.rbc
 *.sassc
 .sass-cache
+*.swp
 capybara-*.html
 .rspec
 /.bundle
