@@ -2,9 +2,12 @@ wp
 *.lock
 *.rbc
 *.sassc
+wp
+*.lock
+*.rbc
+*.sassc
 *.swp
 .sass-cache
-*.swp
 capybara-*.html
 .rspec
 /.bundle

@@ -8,6 +8,8 @@ text = (ctx, text, x, y, bold=false) ->
   ctx.fillStyle    = 'rgba(0,0,0,1)'
   ctx.fillText text, x, y
 
+@_CANVAS_HEIGHT = 500
+
 @parse_options = (obj) ->
   data = []
   if obj.children.length > 0
@@ -56,7 +58,8 @@ text = (ctx, text, x, y, bold=false) ->
     onResize = (ctx) ->
       ctx.canvas.width        = ctx.canvas.clientWidth
       # maintain 4:3 aspect ratio
-      ctx.canvas.height       = ctx.canvas.clientWidth * 3 / 4
+      # ctx.canvas.height       = ctx.canvas.clientWidth * 3 / 4
+      ctx.canvas.height = @_CANVAS_HEIGHT
       onDraw ctx
     onResize ctx
     window.addEventListener 'resize', -> onResize ctx
