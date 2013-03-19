@@ -47,3 +47,16 @@ text = (ctx, text, x, y, bold=false) ->
         ctx.font = 'bold 14pt Sans'
         ctx.fillText o.text,      x+10, ctx.canvas.height-20-5
         x += w
+
+# create canvas if it's a canvas obj
+# maintain aspect ratio and replot on resizes
+@create_canvas = (obj, onDraw) ->
+  if obj.getContext
+    ctx = obj.getContext '2d'
+    onResize = (ctx) ->
+      ctx.canvas.width        = ctx.canvas.clientWidth
+      # maintain 4:3 aspect ratio
+      ctx.canvas.height       = ctx.canvas.clientWidth * 3 / 4
+      onDraw ctx
+    onResize ctx
+    window.addEventListener 'resize', -> onResize ctx

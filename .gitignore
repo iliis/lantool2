@@ -4,6 +4,7 @@ wp
 *.sassc
 *.swp
 .sass-cache
+*.swp
 capybara-*.html
 .rspec
 /.bundle
