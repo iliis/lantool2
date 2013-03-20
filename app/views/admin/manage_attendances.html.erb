@@ -1,0 +1,32 @@
+<h1>Anwesenheit verwalten</h1>
+
+
+<%= form_tag({:controller => :admin, :action => :update_attendances}, {:method => :put}) do %>
+  <table>
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Tage angemeldet</td>
+        <td>Tage anwesend</td>
+        <td>zu zahlen</td>
+        <td>gezahlt?</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attendances.each do |a| %>
+        <%= fields_for "attendances[]", a do |f| %>
+        <tr class="short_text_fields separated">
+          <td><%= a.user.name %><br />
+            <%= render 'shared/form_errors', :errors => a.errors.full_messages %>
+          </td>
+          <td><%= f.text_field :days_registered %></td>
+          <td><%= f.text_field :days_participated %></td>
+          <td><%= f.text_field :fee %></td>
+          <td><%= f.check_box :paid %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= submit_tag 'speichern' %>
+<% end %>

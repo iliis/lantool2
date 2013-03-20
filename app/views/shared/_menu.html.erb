@@ -20,7 +20,9 @@
     <hr>
     <ul>
       <li><%= link_to "Mailinglist verwalten", 'mailinglist/manage' %></li>
-	  <li><%= link_to "alle Benutzer", users_path %></li>
+      <li><%= link_to "alle Benutzer", users_path %></li>
+      <li><%= link_to "User Aktivitätsgraph", '/activity' %></li>
+      <li><%= link_to "Anwesenheit verwalten", '/admin/manage_attendances' %></li>
 	  <li><%= link_to "Export / Import", migration_path %></li>
     </ul>
   <% end %>

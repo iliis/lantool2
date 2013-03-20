@@ -4,7 +4,7 @@ class CreateAttendances < ActiveRecord::Migration
       t.text :comment
       t.decimal :days_registered
       t.decimal :days_participated
-      t.boolean :paid
+      t.boolean :paid, :default => true
       t.decimal :fee
       t.references :user
       t.references :lan

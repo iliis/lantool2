@@ -3,7 +3,8 @@ LanTool2::Application.routes.draw do
   root :to => 'polls#index'
 
   match 'admin' => 'admin#index'
-  match 'admin/canvastest' => 'admin#canvastest'
+  match 'admin/manage_attendances' => 'admin#manage_attendances'
+  put 'admin/update_attendances' => 'admin#update_attendances'
   match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
   match 'lan/mailinglist'  => 'lan#mailinglist'

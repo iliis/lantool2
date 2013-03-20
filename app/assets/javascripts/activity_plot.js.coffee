@@ -61,7 +61,7 @@ onDraw = (ctx, data, starttime, endtime) ->
 
     ctx.fillStyle = 'rgba(0,0,0,0.5)'
     ctx.fillRect x, 0, 1, ctx.canvas.height
-    ctx.fillText day.toLocaleDateString(), x+10, x_axis_height
+    ctx.fillText day.toDateString(), x+10, x_axis_height
 
     ctx.fillStyle = 'rgba(0,0,0,0.1)'
     for i in [1..23]

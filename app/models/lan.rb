@@ -29,6 +29,10 @@ class Lan < ActiveRecord::Base
     I18n.localize(self.starttime, :format => '%B %Y') + ', ' + self.place
   end
 
+  def users_not_attending
+    User.where('`users`.`id` NOT IN (?)', Lan.current.attendances.select(:user_id).collect(&:user_id))
+  end
+
 private
 
   def start_before_end?
