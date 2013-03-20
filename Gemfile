@@ -44,7 +44,7 @@ gem 'mail'
 gem 'valid_email'
 
 # application wide settings (eg. current_lan)
-gem 'ledermann-rails-settings', :require => 'rails-settings'
+gem 'ledermann-rails-settings', :require => 'rails-settings', :git => 'git://github.com/ledermann/rails-settings.git', :branch => '1.x'
 
 # for managing files (especially images)
 gem 'paperclip'
