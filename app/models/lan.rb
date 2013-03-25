@@ -33,6 +33,13 @@ class Lan < ActiveRecord::Base
     User.where('`users`.`id` NOT IN (?)', Lan.current.attendances.select(:user_id).collect(&:user_id))
   end
 
+  def total_days
+    total_days = 0
+    attendances.each do |a| total_days += a.days_participated end # throws when days_participated nil (not set)!
+
+    return total_days
+  end
+
 private
 
   def start_before_end?

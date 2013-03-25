@@ -1,5 +1,8 @@
 <h1>Anwesenheit verwalten</h1>
 
+<%= link_to "Teilenehmerbeiträge aktualisieren", {:controller => :admin, :action => :calculate_attendance_fees} %>
+
+<br />
 
 <%= form_tag({:controller => :admin, :action => :update_attendances}, {:method => :put}) do %>
   <table>
@@ -25,7 +28,20 @@
           <td><%= f.check_box :paid %></td>
         </tr>
       <% end %>
-    <% end %>
+  <% end %>
+
+  <% total_fees = 0
+  @attendances.map { |a| total_fees += a.fee } 
+  %>
+
+  <tr>
+	  <td></td>
+	  <td></td>
+	  <td><b>Total:</b></td>
+	  <td><b><%= total_fees %></b> (<%= Lan.current.total_costs if Lan.current %>)</td>
+	  <td></td>
+  </tr>
+
   </tbody>
 </table>
 <%= submit_tag 'speichern' %>

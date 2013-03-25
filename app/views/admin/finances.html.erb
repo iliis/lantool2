@@ -1,0 +1,14 @@
+<h1>Finanzen</h1>
+
+<%= render 'shared/form_errors' %>
+
+<%= form_for @lan, :url => update_finances_path(@lan) do |f| %>
+	<%= f.label :total_costs, "Kosten insgesamt:" %>
+	<%= f.text_field :total_costs %>
+
+	<%= f.submit 'speichern' %>
+<% end %>
+
+<br />
+
+<%= link_to "Teilenehmerbeiträge aktualisieren", {:controller => :admin, :action => :calculate_attendance_fees} %>

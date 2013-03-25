@@ -58,5 +58,15 @@ private
 		  redirect_to(root_path, :notice => "Keine Berechtigung.") and return false
 	  end
   end
+
+  def check_if_lan_selected
+    if ! Lan.current
+      if admin?
+        redirect_to(:controller => :admin, :action => :index, :notice => "Keine LAN als aktuell markiert")
+      else
+        redirect_to(root_path, :notice => "Momentan findet keine LAN statt.")
+      end
+    end
+  end
 			  
 end

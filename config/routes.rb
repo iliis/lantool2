@@ -2,9 +2,6 @@ LanTool2::Application.routes.draw do
   #root :to => 'lan#register'
   root :to => 'polls#index'
 
-  match 'admin' => 'admin#index'
-  match 'admin/manage_attendances' => 'admin#manage_attendances'
-  put 'admin/update_attendances' => 'admin#update_attendances'
   match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
   match 'lan/mailinglist'  => 'lan#mailinglist'
@@ -27,6 +24,14 @@ LanTool2::Application.routes.draw do
   get 'login'  => 'sessions#new',     :as => 'login'
   get 'logout' => 'sessions#destroy', :as => 'logout'
   get 'signup' => 'users#new',        :as => 'signup'
+  
+  match 'admin' => 'admin#index'
+  match 'admin/manage_attendances' => 'admin#manage_attendances'
+  put 'admin/update_attendances' => 'admin#update_attendances'
+  match 'admin/finances' => 'admin#finances'
+  put 'admin/:id/update_finances' => 'admin#update_finances', :as => 'update_finances'
+  match 'admin/send_invoices' => 'admin#send_invoices'
+  match 'admin/calculate_attendance_fees' => 'admin#calculate_attendance_fees'
 
   # create new poll (1. choose type, 2. input details (general form + ev. additional fields))
   match 'polls/new_type' => 'polls#choose_new_type', :as => 'new_poll'

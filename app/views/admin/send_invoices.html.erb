@@ -1,0 +1,21 @@
+<h1>Rechnungen verschicken</h1>
+
+Newlines werden durch &lt;br&gt; ersetzt.<br />
+<i>$NAME</i>: voller Name<br />
+<i>$FEE</i>: zu zahlender Betrag<br />
+<i>$TOTAL_COSTS</i>: totale Kosten (<%= @lan.total_costs %>)<br />
+<i>$TOTAL_DAYS</i>: total anwesende Tage (<%= @lan.total_days %>)<br />
+<i>$COST_PER_DAY</i>: Kosten pro Tag (<%= @lan.total_costs / @lan.total_days %>)<br />
+
+<%= render 'shared/form_errors' %>
+
+<%= form_tag do %>
+  <%= label_tag :subject, "Subject:" %>
+  <%= text_field_tag(:subject, @subject) %>
+
+  <hr class="field_seperator">
+
+  <%= text_area_tag(:message, @message) %>
+
+  <%= submit_tag 'absenden' %>
+<% end %>

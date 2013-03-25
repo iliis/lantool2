@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228120902) do
+ActiveRecord::Schema.define(:version => 20130320163334) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20130228120902) do
     t.datetime "updated_at",        :null => false
     t.boolean  "registration_open"
     t.text     "description"
+    t.float    "total_costs"
   end
 
   create_table "mail_queues", :force => true do |t|
