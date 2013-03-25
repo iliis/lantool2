@@ -54,3 +54,6 @@ gem 'minitest'
 
 # user authentication
 gem 'bcrypt-ruby', :require => 'bcrypt'
+
+# cool ajax
+gem 'websocket-rails'
