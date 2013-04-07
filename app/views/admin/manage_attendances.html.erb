@@ -31,7 +31,7 @@
   <% end %>
 
   <% total_fees = 0
-  @attendances.map { |a| total_fees += a.fee } 
+  @attendances.map { |a| total_fees += a.fee if a.fee }
   %>
 
   <tr>

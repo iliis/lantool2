@@ -1,8 +1,9 @@
 <h1>Rechnungen verschicken</h1>
 
-Newlines werden durch &lt;br&gt; ersetzt.<br />
+Newlines werden <b>NICHT</b> durch &lt;br&gt; ersetzt. HTML selber einfügen!<br />
 <i>$NAME</i>: voller Name<br />
 <i>$FEE</i>: zu zahlender Betrag<br />
+<i>$DAYS_PARTICIPATED</i>: Anzahl anwesender Tage<br />
 <i>$TOTAL_COSTS</i>: totale Kosten (<%= @lan.total_costs %>)<br />
 <i>$TOTAL_DAYS</i>: total anwesende Tage (<%= @lan.total_days %>)<br />
 <i>$COST_PER_DAY</i>: Kosten pro Tag (<%= @lan.total_costs / @lan.total_days %>)<br />
@@ -15,7 +16,7 @@ Newlines werden durch &lt;br&gt; ersetzt.<br />
 
   <hr class="field_seperator">
 
-  <%= text_area_tag(:message, @message) %>
+  <%= text_area_tag(:message, @message.html_safe) %>
 
   <%= submit_tag 'absenden' %>
 <% end %>

@@ -10,12 +10,13 @@ class LanMailer < ActionMailer::Base
   def registration_confirmation(attendance)
     @attendance = attendance
     @user       = attendance.user
+    # todo: use enqueue_general_mail_to_user here
     mail(:to => "#{@user.name} <#{@user.email}>",
          :from => Settings.mailinglist_sender_email,
          :subject => "[LAN] Anmeldebestätigung").deliver
   end
 
-  def enqueue_general_mail_to_user(mailinglist_user, subject, message)
+  def enqueue_general_mail_to_user(mailinglist_user, subject, message, raw = false)
     @user    = mailinglist_user
     @message = message
 
@@ -24,7 +25,11 @@ class LanMailer < ActionMailer::Base
     m.to   = "#{@user.name} <#{@user.email}>"
     m.subject = subject
 
-    m.content = render 'lan_mailer/mailinglist_mail'
+    if raw
+      m.content = @message
+    else
+      m.content = render 'lan_mailer/mailinglist_mail'
+    end
 
     m.save
   end

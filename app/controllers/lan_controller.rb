@@ -88,9 +88,4 @@ private
       @short_descr = 'keine'
     end
   end
-
-  def send_registration_confirmation_mail(reg)
-    mail(:to => 'samuelbryner@gmx.ch', :from => 'iliis.junk@gmail.com', :subject => 'rails mail test')
-  end
-
 end
