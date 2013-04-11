@@ -3,7 +3,7 @@ lantool2
 
 Complete reimplementation of lantool in Rails. No more ugly PHP.
 
-Status: __In Planning. Not much real content so far.__In
+Status: __In Planning. Not much real content so far.__
 
 
 New Features (planned)
@@ -24,9 +24,9 @@ Random Ideas (implement if bored)
 Installation
 ============
 
-Clone into new directory.
-Run bundle install
-Run rake db:migrate to create the appropriate databases
-Configure databases in config/database.yml 
-Configure stuff in config/environments/development.erb / production.erb
-Configure stuff in config/initializers/settings.rb (alternatively, you can also set these things in the database. Use 'rails console' and 'Settings.foo = "bar"'.)
+1. Clone into new directory.
+1. Run `bundle install`
+1. Run `rake db:migrate` to create the appropriate databases
+1. Configure databases in `config/database.yml`
+1. Configure stuff in `config/environments/development.erb` / `production.erb`
+1. Configure stuff in `config/initializers/settings.rb` (alternatively, you can also set these things in the database. Use `rails console` and `Settings.foo = "bar"`.)
