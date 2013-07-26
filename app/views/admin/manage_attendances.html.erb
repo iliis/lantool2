@@ -32,13 +32,17 @@
   <% end %>
 
   <% total_fees = 0
-  @attendances.map { |a| total_fees += a.fee } 
+  total_days = 0
+  @attendances.map { |a|
+    total_fees += a.fee if a.fee
+    total_days += a.days_participated if a.days_participated
+  }
   %>
 
   <tr>
 	  <td></td>
-	  <td></td>
 	  <td><b>Total:</b></td>
+      <td><b><%= total_days %></b></td>
 	  <td><b><%= total_fees %></b> (<%= Lan.current.total_costs if Lan.current %>)</td>
 	  <td></td>
   </tr>

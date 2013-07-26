@@ -35,7 +35,13 @@ class Lan < ActiveRecord::Base
 
   def total_days
     total_days = 0
-    attendances.each do |a| total_days += a.days_participated end # throws when days_participated nil (not set)!
+    attendances.each do |a|
+      if a.days_participated.nil? then
+        raise "User has undefinded participation day count. Please fix this by going to 'Manage Attendances'"
+      else
+        total_days += a.days_participated
+      end
+    end
 
     return total_days
   end
