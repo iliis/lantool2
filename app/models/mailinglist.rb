@@ -30,6 +30,10 @@ class Mailinglist < ActiveRecord::Base
   end
 
   def self.all_without_registered
-    Mailinglist.where('email NOT IN (?)', Lan.current.users.select(:email).map(&:email))
+    if Lan.current.users.any?
+      Mailinglist.where('email NOT IN (?)', Lan.current.users.select(:email).map(&:email))
+    else
+      Mailinglist.all
+    end
   end
 end
