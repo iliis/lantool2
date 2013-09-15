@@ -1,0 +1,13 @@
+<b>place:</b> <%= lan.place %><br>
+<b>start:</b> <%= lan.starttime %><br>
+<b>end:</b> <%= lan.endtime %><br>
+<b>registration:</b> <%= lan.registration_open ? 'offen' : 'geschlossen' %><br>
+<b>description:</b></br>
+    <%= lan.description.html_safe %><br>
+
+<% if admin? %>
+  <br >
+  <%= link_to "bearbeiten", edit_lan_path(lan) %>
+<% end %>
+
+<hr>

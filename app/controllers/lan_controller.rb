@@ -2,7 +2,15 @@ class LanController < ApplicationController
   protect_from_forgery
 
   before_filter :set_short_descr, :only => [:register, :participants]
-  before_filter :authenticate_admin, :only => [:new, :create]
+  before_filter :authenticate_admin, :only => [:new, :create, :edit, :update]
+
+  def index
+    @all_lans = Lan.all
+  end
+
+  def show
+    @lan = Lan.find_by_id(params[:id])
+  end
 
   def register
     @lan = Lan.current
@@ -63,7 +71,7 @@ class LanController < ApplicationController
   end
   
   def new
-	@lan = Lan.new
+    @lan = Lan.new
   end
   
   def create
@@ -76,6 +84,24 @@ class LanController < ApplicationController
     end
 
     render :action => 'new'
+  end
+
+  def edit
+    @lan = Lan.find(params[:id])
+  end
+
+  def update
+    @lan = Lan.find(params[:id])
+
+    if @lan.update_attributes(params[:lan])
+      if params[:set_as_current]
+        @lan.current!
+      end
+
+      redirect_to @lan
+    else
+      render :action => :edit
+    end
   end
 
 private

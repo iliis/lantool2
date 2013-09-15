@@ -1,8 +1,7 @@
 LanTool2::Application.routes.draw do
-  #root :to => 'lan#register'
-  root :to => 'polls#index'
+  root :to => 'lan#register'
+  #root :to => 'polls#index'
 
-  match 'lan'   => 'lan#register'
   match 'lan/participants' => 'lan#participants'
   match 'lan/mailinglist'  => 'lan#mailinglist'
   match 'register' => 'lan#register'

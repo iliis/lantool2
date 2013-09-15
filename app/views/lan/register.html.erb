@@ -15,10 +15,17 @@
   <% if @lan.registration_open %>
     <%= render 'register_form' %>
   <% else %>
-    Sorry, leider kannst du dich nicht mehr anmelden. <br />
-    Du kannst dich allerdings
-    <%= link_to 'in die Mailingliste eintragen', :controller => 'mailinglists', :action => 'new' %>,
-    um eine Einladung für die nächste LAN zu bekommen.
+    <% if Time.current < @lan.starttime %>
+      Sorry, leider kannst du dich noch nicht anmelden. <br />
+      Du kannst dich allerdings
+      <%= link_to 'in die Mailingliste eintragen', :controller => 'mailinglists', :action => 'new' %>,
+      um eine Einladung zu bekommen, sobald die Anmeldung offen ist.
+    <% else %>
+      Sorry, leider kannst du dich nicht mehr anmelden. <br />
+      Du kannst dich allerdings
+      <%= link_to 'in die Mailingliste eintragen', :controller => 'mailinglists', :action => 'new' %>,
+      um eine Einladung für die nächste LAN zu bekommen.
+    <% end %>
   <% end %>
 
 <% else %>

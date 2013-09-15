@@ -1,0 +1,40 @@
+<% content_for :site_title do %>LAN bearbeiten<% end %>
+<% content_for :page_title do %>LAN bearbieten<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "zurück zur Anmeldung", :controller => 'lan', :action => 'register' %>
+<% end %>
+
+<%= render 'shared/form_errors', :errors => @lan.errors.full_messages %>
+
+<%= form_for @lan do |f| %>
+
+  <%= f.label :place, 'Ort' %> <br />
+  <%= f.text_field :place %>
+
+  <hr class="field_seperator">
+
+  <%= f.label :starttime, 'Start' %> <br />
+  <%= f.text_field :starttime %>
+
+  <hr class="field_seperator">
+
+  <%= f.label :endtime, 'Ende' %> <br />
+  <%= f.text_field :endtime %>
+
+  <hr class="field_seperator">
+
+  <%= f.check_box :registration_open %> <%= f.label :registration_open, 'Registrieriung offen' %>
+  
+  <hr class="field_seperator">
+
+  <%= check_box_tag :set_as_current %> <%= label_tag :set_as_current, 'als aktuell setzten' %>
+
+  <hr class="field_seperator">
+
+  <%= f.label :description, 'Beschreibung' %> <br />
+  <%= f.text_area :description %>
+
+  <hr class="field_seperator">
+
+  <%= f.submit %>
+<% end %>
