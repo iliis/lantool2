@@ -1,7 +1,7 @@
 Ziehe beliebte Optionen nach oben, unbeliebte nach unten:<br><br>
 
 <%= form_for @poll, :url => {:action => :receive_vote } do |f| %>
-	<ul class="prefordering">
+	<ol class="prefordering">
 	<% @poll.options.each do |o| %>
 		<li class="prefordering_option" for="<%= o.id.to_s %>">
 			<%= o.text %>
