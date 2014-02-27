@@ -1,5 +1,6 @@
 //= require jquery.timeago.js
 //= require jquery.timeago.de.js
+//= require jquery.sortable.min.js
 //= require graph.js
 //= require highcharts.js
 
@@ -18,6 +19,15 @@ $ ->
     else
       $(obj).html 'abgelaufen'
 
+# preference ordering vote functions
+# elements are rearrangable via drag-and-drop and their order is then submitted as one string "40,37,38,39"
+$ ->
+  $('.prefordering').sortable()
+  $('form.edit_preference_ordering_poll').submit ->
+    opts = $(this).find(".prefordering_option")
+    # merge all vote IDs into one comma separated string
+    optsstr = ($(o).attr("for") for o in opts).join(",")
+    $(this).append('<input type="hidden" name="vote" value="' + optsstr + '" />')
 
 $ ->
   $('.pie_chart').each (i, obj) ->

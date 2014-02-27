@@ -5,13 +5,6 @@ class MultiVotePoll < Poll
 	# same as SingleVotePoll, but users can choose/not-choose multiple options
 	# see also RedditPoll for +1/0/-1 instead of +1/0 vote
 
-  attr_accessible :options_str
-  attr_accessor   :options_str
-
-  after_create do
-    options_str.split(/\r?\n/).each { |o| add_option(o) }
-  end
-
   def readable_type
     "Mehrfache Abstimmung"
   end

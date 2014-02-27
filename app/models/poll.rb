@@ -15,12 +15,44 @@ class Poll < ActiveRecord::Base
   attr_accessible :expiration_in_hours, :expiration_in_minutes
   attr_accessor   :expiration_in_hours, :expiration_in_minutes
 
-  before_validation do
+  before_validation(on: :create) do
     self.expiration_date = DateTime.now + expiration_in_hours.to_i.hours + expiration_in_minutes.to_i.minutes
   end
 
   validates :owner, :lan, :type, :title, :expiration_date, :presence => true
   validate  :expiration_in_future
+  # cannot validate this here, as poll has to be inserted into database first before options can be created
+  # validates :options, :presence => true
+
+
+  # create forms use one textarea where one line equals one option
+  # not every type of poll must use this
+  attr_accessible :options_str
+  attr_accessor   :options_str
+
+  # def options_str=(str)
+    # str.split(/\r?\n/).each { |o| add_option(o) }
+  # end
+# 
+  # def options_str
+    # options.map{|o| o.text}.join("\n")
+  # end
+
+  # cannot run add_option before Poll object is created, as option needs a reference to an existing Poll
+  after_create do
+    if options_str
+      options_str.split(/\r?\n/).each { |o| add_option(o) }
+    end
+  end
+
+  # ensure we have some options to vote for
+  before_validation do
+    if options_str
+      return options_str.split(/\r?\n/).count > 0
+    end
+  end
+
+
 
   def to_partial_path
     "polls/#{self.class.name.underscore}"
@@ -98,10 +130,28 @@ class Poll < ActiveRecord::Base
     File.exists?(custom_form_path)
   end
 
+
+  def custom_show
+    'polls/show_pages/'+self.class.name.underscore
+  end
+
+  def custom_show_path
+    Rails.root.join('app', 'views', 'polls', 'show_pages', '_'+self.class.name.underscore+".html.erb")
+  end
+
+  def has_custom_show?
+    File.exists?(custom_show_path)
+  end
+
   # overwrite this method if necessary
   # maybe implement better error handling than just throwing errors around...
   def vote(data, user)
     raise "Kann nicht abstimmen." if !self.can_be_voted_on_from?(user)
+
+    if data.empty?
+      raise "Du hast keine Stimme abgegeben."
+      return false
+    end
 
     v = PollVote.new
     v.user = user
@@ -140,8 +190,16 @@ class Poll < ActiveRecord::Base
 
   # call this after poll is created (PollOption needs index of this Poll)
   def add_option(text)
-    o = PollOption.new(:text => text)
-    o.poll = self
-    o.save
+    if self.id.nil?
+      raise "Cannot add option to Poll: Poll doesn't have an ID yet!"
+    end
+    text = text.strip
+    unless text.empty?
+      o = PollOption.new(:text => text)
+      o.poll = self
+      unless o.save
+        raise "Could not add option '" + text + "'"
+      end
+    end
   end
 end
