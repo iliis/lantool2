@@ -17,7 +17,8 @@ class User < ActiveRecord::Base
 
   validates :name,  :presence => true,
                     :uniqueness => true
-  validates :nick,  :uniqueness => true
+  validates :nick,  :presence => true,
+                    :uniqueness => true
   validates :email, :presence => true,
                     :email => true,
                     :uniqueness => true
@@ -87,6 +88,9 @@ class User < ActiveRecord::Base
         u.name  = attendance.user_name
         u.nick  = attendance.user_nick
         u.email = attendance.user_email
+        if u.nick.blank?
+          u.nick = rand(10000)
+        end
       end
       # attendance.user has to be set to u
       # but this works only if u is actually saved in database first
