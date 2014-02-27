@@ -10,7 +10,7 @@ class UserActivity < ActiveRecord::Base
     self.hour = Time.now.hour
   end
 
-  def self.update(user)
+  def self.update(user, ip)
     res = user.activities.where(:day => Date.today, :hour => Time.now.hour).update_all('activity_count = activity_count + 1')
 
     if res == 0
@@ -23,5 +23,7 @@ class UserActivity < ActiveRecord::Base
     elsif res > 1
       raise "Corrupt UserActivity table. #{res} entries matching User #{user.id} at day = '#{Date.today}' and hour = '#{Time.now.hour}'."
     end
+
+    HostActivity.update_from_user(user, ip)
   end
 end

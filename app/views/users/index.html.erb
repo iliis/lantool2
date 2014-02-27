@@ -1,4 +1,23 @@
 <h1>All Users</h1>
-<% @users.each do |u| %>
-  <%= link_to u.name, u %><br>
-<% end %>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Nick</th>
+			<th>IP</th>
+			<th>Host</th>
+			<th>Ports</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |u| %>
+			<tr>
+				<td><%= link_to u.name, u %></td>
+				<td><%= u.nick %></td>
+				<td><%= u.current_ip %></td>
+				<td><%= u.current_hostname %></td>
+				<td><%= u.current_ports %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

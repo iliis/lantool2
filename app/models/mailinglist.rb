@@ -20,16 +20,20 @@ class Mailinglist < ActiveRecord::Base
   end
 
   def self.send_to_registered_users(subject, message)
-    Lan.current.users.each do |u|
+    Lan.current.attendances.each do |a|
       mu = Mailinglist.new
-      mu.name  = u.name
-      mu.email = u.email
+      mu.name  = a.user_name
+      mu.email = a.user_email
       LanMailer.enqueue_general_mail_to_user(mu, subject, message)
     end
     LanMailer.start_processing
   end
 
   def self.all_without_registered
-    Mailinglist.where('email NOT IN (?)', Lan.current.users.select(:email).map(&:email))
+    if Lan.current.attendances.any?
+      Mailinglist.where('email NOT IN (?)', Lan.current.attendances.select(:user_email).map(&:user_email))
+    else
+      Mailinglist.all
+    end
   end
 end

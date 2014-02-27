@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320163334) do
+ActiveRecord::Schema.define(:version => 20140227162452) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(:version => 20130320163334) do
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
     t.datetime "registration_date"
+    t.string   "user_name"
+    t.string   "user_nick"
+    t.string   "user_email"
   end
 
   add_index "attendances", ["lan_id"], :name => "index_attendances_on_lan_id"
@@ -51,6 +54,17 @@ ActiveRecord::Schema.define(:version => 20130320163334) do
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
+
+  create_table "host_activities", :force => true do |t|
+    t.string   "ip"
+    t.string   "hostname"
+    t.integer  "user_id"
+    t.string   "ports"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "host_activities", ["user_id"], :name => "index_host_activities_on_user_id"
 
   create_table "lans", :force => true do |t|
     t.string   "place"

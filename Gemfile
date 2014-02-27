@@ -54,3 +54,9 @@ gem 'minitest'
 
 # user authentication
 gem 'bcrypt-ruby', :require => 'bcrypt'
+
+# for aquiring an overview over currently active machines on the network
+gem 'ruby-nmap'
+
+# periodically run things (scan_lan)
+gem 'whenever', :require => false

@@ -1,5 +1,6 @@
 class PollVote < ActiveRecord::Base
-  attr_accessible :type
+  # 'generic' attributes for special voting mechanims (e.g. type = 'upvote')
+  attr_accessible :type, :weight
 
   belongs_to :poll
   belongs_to :user

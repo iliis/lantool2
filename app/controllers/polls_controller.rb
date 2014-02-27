@@ -34,10 +34,16 @@ class PollsController < ApplicationController
 
   def receive_vote
     @poll = Poll.find(params[:id])
+    data = params[:vote]
 
     show_poll(@poll) and return unless @poll.can_be_voted_on_from?(current_user)
+
+    if data.nil? or (data.is_a? String and data.strip.empty?)
+      raise "Leere Stimme abgegeben."
+      redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')
+    end
     
-    if @poll.vote(params[:vote], current_user)
+    if @poll.vote(data, current_user)
       redirect_to(poll_path(@poll), :notice => 'Deine Stimme wurde gezählt.')
     else
       redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')

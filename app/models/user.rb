@@ -13,10 +13,12 @@ class User < ActiveRecord::Base
   has_many :lans, :through => :attendances
   has_many :polls, :foreign_key => 'owner_id', :dependent => :destroy
   has_many :activities, :dependent => :destroy, :class_name => 'UserActivity'
+  has_many :host_activities, :dependent => :destroy, :class_name => 'HostActivity'
 
   validates :name,  :presence => true,
                     :uniqueness => true
-  validates :nick,  :uniqueness => true
+  validates :nick,  :presence => true,
+                    :uniqueness => true
   validates :email, :presence => true,
                     :email => true,
                     :uniqueness => true
@@ -67,25 +69,75 @@ class User < ActiveRecord::Base
   end
 
   # after registration a user only has name, email and nick => for login, a password has to be set
-  def self.signup_registered(tmp_user)
-    u = User.find_by_email(tmp_user.email)
+  # def self.signup_registered(tmp_user)
+  
+  # after registration, no user exists => create a new one (or return one from a previous lan)
+  def self.create_from_registration(tmp_user)
+    attendance = Lan.current.attendances.find_by_user_email(tmp_user.email)
 
-    if u
-      if u.password_hash.nil?
-        u.password              = tmp_user.password
-        u.password_confirmation = tmp_user.password_confirmation
-        return u
-      else
-        tmp_user.errors[:base] << "Es wurde bereits ein Passwort gesetzt. Melde dich beim Admin falls du dein Passwort vergessen hast."
-        return tmp_user
+    if attendance.nil?
+      tmp_user.errors[:email] << "Nicht gefunden. Hast du dich für diese LAN angemeldet?"
+      return tmp_user
+    end
+
+    if attendance.user.nil?
+      # try to find existing one (e.g. from a previous LAN)
+      u = User.find_by_email(attendance.user_email)
+      if u.nil?
+        u = User.new
+        u.name  = attendance.user_name
+        u.nick  = attendance.user_nick
+        u.email = attendance.user_email
+        if u.nick.blank?
+          u.nick = rand(10000)
+        end
       end
+      # attendance.user has to be set to u
+      # but this works only if u is actually saved in database first
+      # so we have to do this in the controller (UsersController::create)
     else
-      tmp_user.errors[:email] << "nicht gefunden. Hast du dich für diese LAN angemeldet?"
+      # reuse existing (this happens if user already signed up)
+      u = attendance.user
+    end
+
+    if u.password_hash.nil?
+      u.password              = tmp_user.password
+      u.password_confirmation = tmp_user.password_confirmation
+      return u
+    else
+      tmp_user.errors[:base] << "Es wurde bereits ein Passwort gesetzt. Melde dich beim Admin falls du dein Passwort vergessen hast."
       return tmp_user
     end
   end
 
-  def update_activity
-    UserActivity.update(self)
+  def update_activity(ip)
+    UserActivity.update(self, ip)
+  end
+
+  def current_ip
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.ip.blank?
+      return "unbekannt"
+    else
+      return activity.first.ip
+    end
+  end
+
+  def current_hostname
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.hostname.blank?
+      return "unbekannt"
+    else
+      return activity.first.hostname
+    end
+  end
+
+  def current_ports
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.ports.blank?
+      return "unbekannt"
+    else
+      return activity.first.ports
+    end
   end
 end

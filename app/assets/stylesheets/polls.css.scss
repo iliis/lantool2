@@ -3,3 +3,51 @@ canvas.poll_canvas
 	width: 100%;
 	height: 80px; // todo: change this according to chart type
 }
+
+.prefordering_option, .sortable-placeholder
+{
+	border: 1px solid #BBB;
+	padding: 5px;
+	padding-left: 5px;
+	margin: 2px;
+	margin-left: 30px;
+	margin-right: 30px;
+
+	// no text selection
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.sortable-placeholder
+{
+	border: 1px dashed #CCC;
+}
+
+.prefordering_option:hover
+{
+	background-color: #EEE;
+}
+
+.prefordering_matrix th
+{
+	font-weight: bold;
+}
+
+.prefordering_matrix th, .prefordering_matrix td
+{
+	border: 1px solid #BBB;
+	padding: 5px;
+}
+
+ol
+{
+	list-style-type: decimal;
+}
+
+ol li
+{
+	margin: 5px;
+	margin-left: 30px;
+}

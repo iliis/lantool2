@@ -124,17 +124,23 @@ ul
 	list-style-image: image-url('icons/bullet_red.png');
 }
 
-td
+td, th
 {
 	padding: 3pt;
 	padding-left:  10pt;
 	padding-right: 10pt;
+	text-align: left;
 }
 
 thead td
 {
 	border-bottom: 2px solid #333;
 	background-color: #fff;
+}
+
+th
+{
+	font-weight: bold;
 }
 
 striped tr:nth-child(odd)

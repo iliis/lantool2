@@ -30,7 +30,9 @@ class Lan < ActiveRecord::Base
   end
 
   def users_not_attending
-    User.where('`users`.`id` NOT IN (?)', Lan.current.attendances.select(:user_id).collect(&:user_id))
+    # TODO: this is not correct anymore, attendances do not have a user (user is only created on sign-up during LAN)
+    # User.where('`users`.`id` NOT IN (?)', Lan.current.attendances.select(:user_id).collect(&:user_id))
+    raise "Not implemented: models/lan.rb:users_not_attending()"
   end
 
   def total_days

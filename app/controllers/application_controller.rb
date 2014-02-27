@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   @colors = ['#33bb33', '#bb3333', '#3333bb', '#bbbb33', '#aa8811', '#33bbbb', '#bb33bb']
 
   before_filter do
-    current_user.update_activity if current_user # log users activity
+    if current_user # log users activity
+      current_user.update_activity(request.remote_ip)
+    end
   end
 
 

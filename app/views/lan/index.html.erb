@@ -1,0 +1,7 @@
+<% content_for :site_title do %>LAN: all Lans<% end %>
+<% content_for :page_title do %>LANs<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "zurück zur Anmeldung", :controller => 'lan', :action => 'register' %>
+<% end %>
+
+<%= render(partial: "lan/lan", collection: @all_lans) || 'LAN Datenbank ist leer' %>
