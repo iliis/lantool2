@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320163334) do
+ActiveRecord::Schema.define(:version => 20140227133149) do
 
   create_table "attendances", :force => true do |t|
     t.text     "comment"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(:version => 20130320163334) do
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
     t.datetime "registration_date"
+    t.string   "user_name"
+    t.string   "user_nick"
+    t.string   "user_email"
   end
 
   add_index "attendances", ["lan_id"], :name => "index_attendances_on_lan_id"
