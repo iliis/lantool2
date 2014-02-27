@@ -29,8 +29,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.signup_registered(User.new(params[:user]))
+    @user = User.create_from_registration(User.new(params[:user]))
     if @user.errors.empty? and @user.save
+      a = Lan.current.attendances.find_by_user_email(@user.email)
+      a.user = @user
+      a.save
       session[:user_id] = @user.id
       redirect_to root_url
     else

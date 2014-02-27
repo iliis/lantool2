@@ -31,9 +31,9 @@ class LanController < ApplicationController
         LanMailer.registration_confirmation(att)
         render 'registration_successfull'
       else
-        @full_name = user.name
-        @nick      = user.nick
-        @email     = user.email
+        @full_name = att.user_name
+        @nick      = att.user_nick
+        @email     = att.user_email
         @duration  = att.days_registered
         @comment   = att.comment
 

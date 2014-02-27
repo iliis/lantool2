@@ -61,7 +61,7 @@ class MailinglistsController < ApplicationController
   def send_message
     @recipient_count = Mailinglist.count
     if Lan.current
-      @registered_count = Lan.current.users.count
+      @registered_count = Lan.current.attendances.count
       @recipient_count_without_registered = Mailinglist.all_without_registered.count
     else
       @registered_count = 0
