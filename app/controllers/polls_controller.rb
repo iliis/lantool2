@@ -38,7 +38,7 @@ class PollsController < ApplicationController
 
     show_poll(@poll) and return unless @poll.can_be_voted_on_from?(current_user)
 
-    if data.nil? or data.strip.empty?
+    if data.nil? or (data.is_a? String and data.strip.empty?)
       raise "Leere Stimme abgegeben."
       redirect_to(vote_poll_path(@poll), :notice => 'Da ist was schiefgelaufen. Versuchs nochmal.')
     end
