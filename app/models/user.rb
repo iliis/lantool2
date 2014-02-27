@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :lans, :through => :attendances
   has_many :polls, :foreign_key => 'owner_id', :dependent => :destroy
   has_many :activities, :dependent => :destroy, :class_name => 'UserActivity'
+  has_many :host_activities, :dependent => :destroy, :class_name => 'HostActivity'
 
   validates :name,  :presence => true,
                     :uniqueness => true
@@ -105,7 +106,34 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_activity
-    UserActivity.update(self)
+  def update_activity(ip)
+    UserActivity.update(self, ip)
+  end
+
+  def current_ip
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.ip.blank?
+      return "unbekannt"
+    else
+      return activity.first.ip
+    end
+  end
+
+  def current_hostname
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.hostname.blank?
+      return "unbekannt"
+    else
+      return activity.first.hostname
+    end
+  end
+
+  def current_ports
+    activity = HostActivity.where(:user_id => self)
+    if activity.nil? || activity.first.nil? || activity.first.ports.blank?
+      return "unbekannt"
+    else
+      return activity.first.ports
+    end
   end
 end
