@@ -30,6 +30,11 @@ class HostActivity < ActiveRecord::Base
     if entry.nil?
       entry = HostActivity.new
       entry.ip = ip
+    elsif not entry.user.nil?
+      # update normal activity log, aser user's pc is still online
+      # warning: this calls HostActivity.update_from_user as well
+      # also: count user.update_activity from nmap differently
+      entry.user.update_activity(entry.ip)
     end
 
     entry.hostname = hostname

@@ -87,11 +87,16 @@ onDraw = (ctx, data, starttime, endtime) ->
 
     u.not_in_range_count = 0
 
-    ctx.fillStyle = 'rgba(0,0,0,1)'
     for a in u.activities
       if a.day >= starttime and a.day <= endtime
         day = date_difference_in_days starttime, a.day
         h = Math.max(1, line_height / max_activity * a.activity_count)
+        # highlight hour if there was any activity
+        if a.activity_count > 0
+          ctx.fillStyle = 'rgba(50,255,100,0.3)'
+          ctx.fillRect name_col_width + day_width*day + hour_width*a.hour, y-line_height, hour_width, line_height
+        # show amount of acitivyt (todo: log scale)
+        ctx.fillStyle = 'rgba(0,0,0,1)'
         ctx.fillRect name_col_width + day_width*day + hour_width*a.hour, y-h, hour_width, h
       else
         u.not_in_range_count += a.activity_count
