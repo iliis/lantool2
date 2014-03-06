@@ -44,6 +44,14 @@ class AdminController < ApplicationController
     total_costs = Lan.current.total_costs
     total_days  = Lan.current.total_days
 
+    if total_costs.nil? or total_costs == 0
+      raise "Bitte totale Kosten der aktuellen Lan setzten."
+    end
+
+    if total_days.nil? or total_days == 0
+      raise "Bitte Zeitdauer der aktuellen Lan festlegen."
+    end
+
     @attendances.each do |a|
       a.fee = ( total_costs / total_days * a.days_participated ).ceil
       a.save
