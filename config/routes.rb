@@ -56,6 +56,14 @@ LanTool2::Application.routes.draw do
 
   match 'activity' => 'activity#plot'
 
+  resources :places do
+    resources :furnitures
+  end
+  resources :table_layouts do
+    resources :table_layout_sectors
+  end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
