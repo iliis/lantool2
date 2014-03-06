@@ -20,7 +20,7 @@
       <% @attendances.each do |a| %>
         <%= fields_for "attendances[]", a do |f| %>
 			<tr class="short_text_fields separated <%= a.paid ? "paid" : "not_paid" %>">
-				<td><%= a.user.name %><br />
+				<td><%= a.user_name %><br />
 					<%= render 'shared/form_errors', :errors => a.errors.full_messages %>
 				</td>
 				<td><%= f.text_field :days_registered %></td>
