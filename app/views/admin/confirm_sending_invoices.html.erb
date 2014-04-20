@@ -1,0 +1,23 @@
+<h1>Rechnungen verschicken (Vorschau)</h1>
+
+<%= render 'shared/form_errors' %>
+
+Folgende Nachricht wird an <%= @recipient_count %> Personen geschickt:
+
+<hr>
+
+<h3><%= @subject %></h3>
+
+<%= @parsed_message %>
+
+<hr>
+
+<%= form_tag do %>
+	<% # keep data in POST %>
+	<%= hidden_field_tag(:message, @message) %>
+	<%= hidden_field_tag(:subject, @subject) %>
+
+	<%= submit_tag("bearbeiten", :name => 'edit') %>
+<br><br>
+	<%= submit_tag("wirklich absenden", :name => 'confirm') %>
+<% end %>

@@ -24,7 +24,7 @@ class LanMailer < ActionMailer::Base
     m.subject = subject
 
     if raw
-      m.content = @message
+      m.content = @message.html_safe
     else
       m.content = render 'lan_mailer/mailinglist_mail'
     end

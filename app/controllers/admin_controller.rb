@@ -66,8 +66,9 @@ class AdminController < ApplicationController
     @message = params[:message]
     @subject = params[:subject]
 
-    if !@message.blank? and !@subject.blank?
-      @message = @message
+    if !@message.blank? and !@subject.blank? and params[:edit].nil?
+
+      @parsed_message = @message
       .gsub("$TOTAL_COSTS", @lan.total_costs.to_s)
       .gsub("$TOTAL_DAYS",  @lan.total_days.to_s)
       .gsub("$COST_PER_DAY", (@lan.total_costs / @lan.total_days).to_s )
@@ -79,27 +80,49 @@ class AdminController < ApplicationController
         end
       end
 
-      @lan.attendances.each do |a|
-        if not a.paid and a.fee > 0
-          mu = Mailinglist.new
-          mu.name  = a.user.name
-          mu.email = a.user.email
+      if params[:confirm].nil?
+        # show message confirmation dialog
+        
+        # use random user to fill in blanks
+        a = @lan.attendances.first
+        msg = @parsed_message
+        msg = msg.gsub("$DAYS_PARTICIPATED", a.days_participated.to_s)
+        msg = msg.gsub("$NAME", a.user.name)
+        msg = msg.gsub("$FEE",  a.fee.to_s)
+        @parsed_message = msg.html_safe
 
-          msg = @message
-          msg = msg.gsub("$DAYS_PARTICIPATED", a.days_participated.to_s)
-          msg = msg.gsub("$NAME", a.user.name)
-          msg = msg.gsub("$FEE",  a.fee.to_s)
-
-          LanMailer.enqueue_general_mail_to_user(mu, @subject, msg, true)
+        if msg.include? '$'
+          (@errors ||= []) << "Found unparsed dollar sign! This usually indicates that some variable couldn't be found."
         end
 
+        @recipient_count = @lan.attendances.select{ |a| not a.paid and a.fee > 0 }.count
+
+        render 'confirm_sending_invoices'
+      else
+        # really send email
+
+        @lan.attendances.each do |a|
+          if not a.paid and a.fee > 0
+            mu = Mailinglist.new
+            mu.name  = a.user.name
+            mu.email = a.user.email
+
+            msg = @parsed_message
+            msg = msg.gsub("$DAYS_PARTICIPATED", a.days_participated.to_s)
+            msg = msg.gsub("$NAME", a.user.name)
+            msg = msg.gsub("$FEE",  a.fee.to_s)
+
+            LanMailer.enqueue_general_mail_to_user(mu, @subject, msg, true)
+          end
+
+        end
+
+        LanMailer.start_processing
+
+        #@message = @message.gsub('<br>',"\n")
+        flash[:notice] = "gesendet"
       end
-
-      LanMailer.start_processing
-
-      #@message = @message.gsub('<br>',"\n")
-      flash[:notice] = "gesendet"
-    else
+    elsif params[:edit].nil?
       @subject = '[LAN] Rechnung für Lan vom '+@lan.time
       @message = render_to_string :partial => 'invoice_template'
     end
