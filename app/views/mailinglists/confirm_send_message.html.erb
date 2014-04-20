@@ -1,0 +1,27 @@
+<% content_for :site_title do %>LAN Mailingliste: send mail (confirm)<% end %>
+<% content_for :page_title do %>Mailingliste: send mail (confirm)<% end %>
+<% content_for :page_subtitle do %>
+  <%= link_to "manage", :action => 'manage' %>
+<% end %>
+
+<%= render 'shared/form_errors' %>
+
+Folgender Text wird an <%= @recipient_count %> Leute geschickt:
+
+<hr>
+
+<h3><%= @subject %></h3>
+<%= @msg %>
+
+<hr>
+
+<%= form_tag do %>
+	<% # keep data in POST %>
+	<%= hidden_field_tag(:message, @message) %>
+	<%= hidden_field_tag(:subject, @subject) %>
+	<%= hidden_field_tag(:recipient_group, params[:recipient_group]) %>
+
+	<%= submit_tag("bearbeiten", :name => 'edit') %>
+<br><br>
+	<%= submit_tag("wirklich absenden", :name => 'confirm') %>
+<% end %>

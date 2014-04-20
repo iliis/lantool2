@@ -71,27 +71,43 @@ class MailinglistsController < ApplicationController
     @message = params[:message]
     @subject = params[:subject]
 
-    if !@message.blank? and !@subject.blank?
-      # TODO: implement this in seperate thread (done: via rake) and provide some sort of live-updates
-      msg = @message.gsub(/\r?\n/,'<br>').html_safe
+    if !@message.blank? and !@subject.blank? and params[:edit].nil?
+      @msg = @message.gsub(/\r?\n/,'<br>').html_safe
+      if params[:confirm].nil?
+        # show message first before really sending it
 
-      if params[:recipient_group] == :list_whithout_registered
-        Mailinglist.send_to_all(@subject, msg, true)
-      elsif params[:recipient_group] == :only_registered
-        Mailinglist.send_to_registered(@subject, msg)
+        if params[:recipient_group] == :list_whithout_registered
+          @recipient_count = @recipient_count_without_registered
+        elsif params[:recipient_group] == :only_registered
+          @recipient_count = @registered_count
+        end
+
+        render 'confirm_send_message'
       else
-        Mailinglist.send_to_all(@subject, msg, false)
-      end
+        # really send the message
+        # TODO: implement this in seperate thread (done: via rake) and provide some sort of live-updates
 
-      flash[:notice] = "gesendet"
+        if params[:recipient_group] == :list_whithout_registered
+          Mailinglist.send_to_all(@subject, @msg, true)
+        elsif params[:recipient_group] == :only_registered
+          Mailinglist.send_to_registered(@subject, @msg)
+        else
+          Mailinglist.send_to_all(@subject, @msg, false)
+        end
+
+        flash[:notice] = "gesendet"
+      end
     else
       @lan = Lan.current
-      if @lan
-        @subject = '[LAN] Einladung für '+@lan.time
-        @message = render_to_string :partial => 'new_template'
-      else
-        @subject = '[LAN] Einladung für KEINE AKTUELLE LAN'
-        @message = 'Es ist keine LAN als aktuell markiert. Du kannst dies unter [link to lan management] ändern.'
+      if @message.blank? and @subject.blank?
+        # fill in default text
+        if @lan
+          @subject = '[LAN] Einladung für '+@lan.time
+          @message = render_to_string :partial => 'new_template'
+        else
+          @subject = '[LAN] Einladung für KEINE AKTUELLE LAN'
+          @message = 'Es ist keine LAN als aktuell markiert. Du kannst dies unter [link to lan management] ändern.'
+        end
       end
     end
   end
