@@ -19,6 +19,12 @@ Nick: <b><%= @user.nick %></b><br /></br />
 		<th>Ports:</th>
 		<td><%= @user.current_ports %></td>
 	</tr>
+<% if @user == current_user or admin? %>
+	<tr>
+		<th>Email:</th>
+		<td><%= @user.email %></td>
+	</tr>
+<% end %>
 </table>
 <br>
 <br>

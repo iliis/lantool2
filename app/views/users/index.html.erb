@@ -4,6 +4,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Nick</th>
+			<% if admin? %><th>Email</th><% end %>
 			<th>IP</th>
 			<th>Host</th>
 			<th>Ports</th>
@@ -14,6 +15,7 @@
 			<tr>
 				<td><%= link_to u.name, u %></td>
 				<td><%= u.nick %></td>
+				<% if admin? %><td><%= u.email %></td><% end %>
 				<td><%= u.current_ip %></td>
 				<td><%= u.current_hostname %></td>
 				<td><%= u.current_ports %></td>
